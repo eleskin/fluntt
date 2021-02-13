@@ -1,19 +1,14 @@
 <template>
   <header class="header">
-    <router-link to="/user" class="header__user header__btn">
-      <font-awesome-icon icon="user"/>
-    </router-link>
     <router-link to="/" class="header__logo">Fluntt</router-link>
-    <router-link to="/notifications" class="header__notifications header__btn">
-      <font-awesome-icon icon="bell"/>
-    </router-link>
   </header>
 </template>
 
-<script>
+<script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 
-@Options({})
+@Options({
+})
 export default class Header extends Vue {
 }
 </script>
@@ -22,17 +17,22 @@ export default class Header extends Vue {
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 .header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
   background: #FFFFFF;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
-  border-radius: 0 0 4px 4px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 8px 12px;
+  padding: 14px;
+  box-sizing: border-box;
   .header__logo {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 20px;
     font-family: 'Josefin Sans', sans-serif;
     text-decoration: none;
     color: #000000;
@@ -46,10 +46,15 @@ export default class Header extends Vue {
     height: 24px;
     border-radius: 50%;
     font-size: 14px;
+    border: none;
+    outline: none;
   }
-  .header__user {
+  .header__back {
     background-color: #4376f9;
     color: #ffffff;
+  }
+  .header__back[disabled] {
+    background: #d7d7d7;
   }
   .header__notifications {
     color: #4376f9;

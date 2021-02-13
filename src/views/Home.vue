@@ -1,5 +1,6 @@
 <template>
-  <div class="home">
+  <div class="page">
+    Home
 <!--    <Button style-type="primary">Primary Button</Button>-->
 <!--    <Button style-type="secondary">Secondary Button</Button>-->
 <!--    <Button style-type="success">Success Button</Button>-->

@@ -1,13 +1,20 @@
 import { createApp } from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser, faBell } from '@fortawesome/free-solid-svg-icons';
+import {
+  faLongArrowAltLeft,
+  faBell,
+  faHome,
+  faWallet,
+  faHistory,
+  faSlidersH,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
 
-library.add(faUser, faBell);
+library.add(faLongArrowAltLeft, faBell, faHome, faWallet, faHistory, faSlidersH);
 
 const app = createApp(App);
 
