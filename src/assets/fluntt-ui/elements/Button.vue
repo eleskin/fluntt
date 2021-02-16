@@ -17,11 +17,12 @@ export default class Button extends Vue {}
 
 <style lang="scss" scoped>
 .button {
+  margin: 12px 0;
+  width: 100%;
   cursor: pointer;
   border-radius: 4px;
   font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 0.05em;
+  font-size: 14px;
   padding: 12px 24px;
   line-height: 100%;
   text-transform: uppercase;

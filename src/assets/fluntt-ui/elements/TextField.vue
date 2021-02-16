@@ -29,7 +29,7 @@ export default class Button extends Vue {
 .text-field {
   display: flex;
   flex-direction: column;
-  padding: 4px 0;
+  padding: 12px 0;
 
   .text-field__wrapper {
     position: relative;
@@ -37,8 +37,9 @@ export default class Button extends Vue {
     display: inline;
 
     .text-field__input {
+      width: 100%;
       background: #ffffff;
-      border: 3px solid #E0E0E0;
+      border: 2px solid #E0E0E0;
       box-sizing: border-box;
       border-radius: 4px;
       padding: 12px;
@@ -46,10 +47,12 @@ export default class Button extends Vue {
       line-height: 100%;
       font-size: 16px;
       transition: 0.3s ease-in-out;
+      -webkit-box-shadow: inset 0 0 0 50px #fff;
+      -webkit-text-fill-color: #000;
     }
 
     .text-field__input:focus {
-      border: 3px solid #4376F9;
+      border-color: #4376F9;
       transition: 0.3s ease-in-out;
       color: #000000;
     }
@@ -74,15 +77,17 @@ export default class Button extends Vue {
 
     .text-field__input::placeholder {
       opacity: 0;
+      transition: 0.3s ease-in-out;
     }
 
-    .text-field__input:not(:placeholder-shown) + .text-field__placeholder {
+    .text-field__input:not(:placeholder-shown) + .text-field__placeholder,
+    .text-field__input:focus + .text-field__placeholder {
       transform: translateY(-120%) translateX(13px);
       transition: 0.3s ease-in-out;
       background: #ffffff;
     }
 
-    .text-field__input:focus:not(:placeholder-shown) + .text-field__placeholder {
+    .text-field__input:focus + .text-field__placeholder  {
       transition: 0.3s ease-in-out;
       color: #4376f9;
     }
@@ -92,7 +97,7 @@ export default class Button extends Vue {
 .text-field-error {
   .text-field__wrapper {
     .text-field__input {
-      border: 3px solid #E32602;
+      border-color: #E32602;
       color: #e32602;
     }
     .text-field__placeholder {
