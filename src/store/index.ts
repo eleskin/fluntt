@@ -1,17 +1,5 @@
 import { createStore } from 'vuex';
-
-interface AuthModule {
-  isLogin: boolean;
-}
-
-const authModule = {
-  state: {
-    isLogin: false,
-  },
-  getters: {
-    getIsLogin: (state: AuthModule) => state.isLogin,
-  },
-};
+import authModule from '@/store/authModule';
 
 export default createStore({
   state: {

@@ -3,7 +3,10 @@
     <span class="text-field__wrapper">
       <input
         class="text-field__input"
-        :placeholder="placeholder" :type="type"
+        :placeholder="placeholder"
+        :type="type"
+        :required="required"
+        :v-model="v-model"
       />
       <span class="text-field__placeholder">{{ placeholder }}</span>
     </span>
@@ -19,9 +22,11 @@ import { Options, Vue } from 'vue-class-component';
     placeholder: String,
     type: String,
     error: String,
+    required: Boolean,
+    'v-model': null,
   },
 })
-export default class Button extends Vue {
+export default class TextField extends Vue {
 }
 </script>
 

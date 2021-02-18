@@ -31,6 +31,13 @@ html, body {
   display: inline-block;
 }
 
+.page-sign__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .title {
   font-weight: bold;
   margin: 0 0 16px 0;
