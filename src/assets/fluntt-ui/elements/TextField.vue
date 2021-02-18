@@ -1,5 +1,5 @@
 <template>
-  <label :class="`text-field ${error && 'text-field-error'}`">
+  <label :class="`text-field${error ? ' text-field-error' : ''}`">
     <span class="text-field__wrapper">
       <input
         class="text-field__input"
@@ -30,6 +30,7 @@ export default class Button extends Vue {
   display: flex;
   flex-direction: column;
   padding: 12px 0;
+  width: 100%;
 
   .text-field__wrapper {
     position: relative;

@@ -41,6 +41,7 @@ export default class Navbar extends Vue {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  z-index: 2;
   .navbar__link {
     padding: 12px;
     border-radius: 4px;

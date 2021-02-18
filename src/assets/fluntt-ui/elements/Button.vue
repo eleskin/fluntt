@@ -23,7 +23,7 @@ export default class Button extends Vue {}
   border-radius: 4px;
   font-weight: 600;
   font-size: 14px;
-  padding: 12px 24px;
+  padding: 18px 24px;
   line-height: 100%;
   text-transform: uppercase;
   outline: none;
@@ -42,21 +42,26 @@ export default class Button extends Vue {}
 
 .button-primary {
   background: #4376f9;
-  box-shadow: 0 5px 10px rgba(#4376f9, 0.25);
   color: #ffffff;
 }
 
-.button-primary:active {
+.button-primary:hover {
   background: darken(#4376f9, 4%);
 }
 
 .button-secondary {
   background: #ffffff;
   color: #4376f9;
-  border: 1px solid #4376f9;
+  border: 2px solid #4376f9;
 }
 
-.button-secondary:active {
+.button-secondary:hover {
+  background: #4376f9;
+  color: #ffffff;
+  border: 2px solid #4376f9;
+}
+
+.button-secondary:hover {
   background: darken(#ffffff, 4%);
 }
 
@@ -66,7 +71,7 @@ export default class Button extends Vue {}
   color: #ffffff;
 }
 
-.button-success:active {
+.button-success:hover {
   background: darken(#00C12F, 4%);
 }
 
@@ -76,7 +81,7 @@ export default class Button extends Vue {}
   color: #000000;
 }
 
-.button-warning:active {
+.button-warning:hover {
   background: darken(#FAD30F, 4%);
 }
 
@@ -86,7 +91,7 @@ export default class Button extends Vue {}
   color: #ffffff;
 }
 
-.button-danger:active {
+.button-danger:hover {
   background: darken(#E32602, 4%);
 }
 
@@ -96,7 +101,7 @@ export default class Button extends Vue {}
   color: #ffffff;
 }
 
-.button-additional:active {
+.button-additional:hover {
   background: darken(#6003FD, 4%);
 }
 
@@ -119,9 +124,6 @@ export default class Button extends Vue {}
 .button-link:hover::after {
   width: 100%;
   transition: 0.2s ease-in-out;
-}
-
-.button-link:active {
   color: darken(#4376F9, 4%);
 }
 </style>

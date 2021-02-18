@@ -30,6 +30,7 @@ export default class Header extends Vue {
   align-items: center;
   padding: 14px;
   box-sizing: border-box;
+  z-index: 2;
   .header__logo {
     font-weight: 600;
     font-size: 20px;

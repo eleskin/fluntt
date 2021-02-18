@@ -1,4 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import beforeEnterGuest from '@/router/guest';
+import beforeEnterAuth from '@/router/auth';
 import Home from '../views/Home.vue';
 
 const routes: Array<RouteRecordRaw> = [
@@ -6,49 +8,37 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Home',
     component: Home,
-    meta: {
-      requiresAuth: true,
-    },
+    beforeEnter: beforeEnterAuth,
   },
   {
     path: '/wallet',
     name: 'Wallet',
     component: () => import(/* webpackChunkName: "about" */ '../views/Wallet.vue'),
-    meta: {
-      requiresAuth: true,
-    },
+    beforeEnter: beforeEnterAuth,
   },
   {
     path: '/history',
     name: 'History',
     component: () => import(/* webpackChunkName: "about" */ '../views/History.vue'),
-    meta: {
-      requiresAuth: true,
-    },
+    beforeEnter: beforeEnterAuth,
   },
   {
     path: '/settings',
     name: 'Settings',
     component: () => import(/* webpackChunkName: "about" */ '../views/Settings.vue'),
-    meta: {
-      requiresAuth: true,
-    },
+    beforeEnter: beforeEnterAuth,
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue'),
-    meta: {
-      requiresAuth: false,
-    },
+    beforeEnter: beforeEnterGuest,
   },
   {
     path: '/register',
     name: 'Register',
     component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue'),
-    meta: {
-      requiresAuth: false,
-    },
+    beforeEnter: beforeEnterGuest,
   },
 ];
 
@@ -57,17 +47,17 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    const isAuth = true;
-    if (isAuth) {
-      next({ name: 'Login' });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some((record) => record.meta.requiresAuth)) {
+//     console.log(store.getters.getIsLogin);
+//     if (!store.getters.getIsLogin) {
+//       next({ name: 'Login' });
+//     } else {
+//       next();
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;

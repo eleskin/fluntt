@@ -21,12 +21,14 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
   box-sizing: border-box;
 }
 
 .page-sign__link {
   font-size: 14px;
   color: #4376F9;
+  display: inline-block;
 }
 
 .title {
