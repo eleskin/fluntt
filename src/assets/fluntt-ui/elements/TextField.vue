@@ -6,7 +6,7 @@
         :placeholder="placeholder"
         :type="type"
         :required="required"
-        :v-model="v-model"
+        :value="value"
       />
       <span class="text-field__placeholder">{{ placeholder }}</span>
     </span>
@@ -19,12 +19,15 @@ import { Options, Vue } from 'vue-class-component';
 
 @Options({
   props: {
-    placeholder: String,
-    type: String,
-    error: String,
-    required: Boolean,
-    'v-model': null,
+    placeholder: '',
+    type: '',
+    error: '',
+    required: null,
+    value: '',
   },
+  data: () => ({
+    name: '',
+  }),
 })
 export default class TextField extends Vue {
 }

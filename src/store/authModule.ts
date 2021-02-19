@@ -1,24 +1,23 @@
-import axios, { AxiosResponse } from 'axios';
-
 interface AuthModule {
   isLogin: boolean;
+  id: number;
 }
 
 const authModule = {
   state: {
     isLogin: false,
+    id: null,
   },
   getters: {
     getIsLogin: (state: AuthModule) => state.isLogin,
   },
-  actions: {
-    register: (data: any) => {
-      const { name, email, password } = data;
-
-      axios
-        .post('http://localhost/fluntt-api/api/register/')
-        .then((response: AxiosResponse) => console.log(response));
+  mutations: {
+    LOG_IN: (state: AuthModule, id: number) => {
+      state.isLogin = true;
+      state.id = id;
     },
+  },
+  actions: {
   },
 };
 

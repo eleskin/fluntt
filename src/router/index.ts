@@ -47,17 +47,4 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some((record) => record.meta.requiresAuth)) {
-//     console.log(store.getters.getIsLogin);
-//     if (!store.getters.getIsLogin) {
-//       next({ name: 'Login' });
-//     } else {
-//       next();
-//     }
-//   } else {
-//     next();
-//   }
-// });
-
 export default router;
