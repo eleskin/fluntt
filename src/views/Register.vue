@@ -5,23 +5,23 @@
       <TextField
         placeholder="Your name"
         type="text"
-        required
-        :value="name"
-        @input="name = $event.target.value"
+        :error="errors.name"
+        :value="data.name"
+        @input="data.name = $event.target.value; errors.name = '';"
       />
       <TextField
         placeholder="Your email"
-        type="email"
-        required
-        :value="email"
-        @input="email = $event.target.value"
+        type="text"
+        :error="errors.email"
+        :value="data.email"
+        @input="data.email = $event.target.value; errors.email = '';"
       />
       <TextField
         placeholder="Password"
         type="password"
-        required
-        :value="password"
-        @input="password = $event.target.value"
+        :error="errors.password"
+        :value="data.password"
+        @input="data.password = $event.target.value; errors.password = '';"
       />
       <Button style-type="primary">Create account</Button>
     </form>
@@ -32,7 +32,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { Button, TextField } from '@/assets/fluntt-ui';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import store from '@/store/index';
 import router from '@/router';
 
@@ -44,9 +44,12 @@ interface Data {
 
 @Options({
   data: () => ({
-    name: '',
-    email: '',
-    password: '',
+    data: {
+      name: '',
+      email: '',
+      password: '',
+    },
+    errors: {},
   }),
   components: {
     Button,
@@ -56,10 +59,12 @@ interface Data {
     register(event: Event) {
       event.preventDefault();
 
+      this.errors = {};
+
       const data: Data = {
-        name: this.name,
-        email: this.email,
-        password: this.password,
+        name: this.data.name,
+        email: this.data.email,
+        password: this.data.password,
       };
       axios
         .post('http://localhost:8000/api/auth/register/', data)
@@ -70,6 +75,14 @@ interface Data {
             localStorage.setItem('token_type', response.data.token_type);
             router.push('/');
           }
+        })
+        .catch((error: AxiosError) => {
+          const errors = error.response?.data.errors || {};
+          this.errors = {
+            name: Array.isArray(errors.name) ? errors.name[0] : '',
+            email: Array.isArray(errors.email) ? errors.email[0] : '',
+            password: Array.isArray(errors.password) ? errors.password[0] : '',
+          };
         });
     },
   },
