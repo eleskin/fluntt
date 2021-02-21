@@ -1,44 +1,63 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import beforeEnterGuest from '@/router/guest';
-import beforeEnterAuth from '@/router/auth';
+import {
+  createRouter,
+  createWebHashHistory, NavigationGuardNext,
+  RouteRecordRaw,
+} from 'vue-router';
+import store from '@/store';
 import Home from '../views/Home.vue';
+
+const ifNotAuthenticated = (to: object, from: object, next: NavigationGuardNext) => {
+  if (!store.getters.isAuthenticated) {
+    next();
+    return;
+  }
+  next('/');
+};
+
+const ifAuthenticated = (to: object, from: object, next: NavigationGuardNext) => {
+  if (store.getters.isAuthenticated) {
+    next();
+    return;
+  }
+  next('/login');
+};
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
     component: Home,
-    beforeEnter: beforeEnterAuth,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: '/wallet',
     name: 'Wallet',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Wallet.vue'),
-    beforeEnter: beforeEnterAuth,
+    component: () => import('../views/Wallet.vue'),
+    beforeEnter: ifAuthenticated,
   },
   {
     path: '/history',
     name: 'History',
-    component: () => import(/* webpackChunkName: "about" */ '../views/History.vue'),
-    beforeEnter: beforeEnterAuth,
+    component: () => import('../views/History.vue'),
+    beforeEnter: ifAuthenticated,
   },
   {
     path: '/settings',
     name: 'Settings',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Settings.vue'),
-    beforeEnter: beforeEnterAuth,
+    component: () => import('../views/Settings.vue'),
+    beforeEnter: ifAuthenticated,
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue'),
-    beforeEnter: beforeEnterGuest,
+    component: () => import('../views/Login.vue'),
+    beforeEnter: ifNotAuthenticated,
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue'),
-    beforeEnter: beforeEnterGuest,
+    component: () => import('../views/Register.vue'),
+    beforeEnter: ifNotAuthenticated,
   },
 ];
 

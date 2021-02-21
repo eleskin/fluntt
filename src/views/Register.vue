@@ -32,7 +32,6 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { Button, TextField } from '@/assets/fluntt-ui';
-import axios, { AxiosError, AxiosResponse } from 'axios';
 import store from '@/store/index';
 import router from '@/router';
 
@@ -66,18 +65,13 @@ interface Data {
         email: this.data.email,
         password: this.data.password,
       };
-      axios
-        .post('http://localhost:8000/api/auth/register/', data)
-        .then((response: AxiosResponse) => {
-          if (response.status === 200) {
-            store.commit('LOG_IN');
-            localStorage.setItem('access_token', response.data.access_token);
-            localStorage.setItem('token_type', response.data.token_type);
-            router.push('/');
-          }
+
+      store.dispatch('REGISTER_REQUEST', data)
+        .then(() => {
+          router.push('/');
         })
-        .catch((error: AxiosError) => {
-          const errors = error.response?.data.errors || {};
+        .catch((response) => {
+          const errors = response?.data.errors || {};
           this.errors = {
             name: Array.isArray(errors.name) ? errors.name[0] : '',
             email: Array.isArray(errors.email) ? errors.email[0] : '',

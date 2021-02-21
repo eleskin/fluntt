@@ -25,7 +25,6 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { Button, TextField } from '@/assets/fluntt-ui';
-import axios, { AxiosError, AxiosResponse } from 'axios';
 import store from '@/store';
 import router from '@/router';
 
@@ -56,23 +55,17 @@ interface Data {
         email: this.data.email,
         password: this.data.password,
       };
-      axios
-        .post('http://localhost:8000/api/auth/login/', data)
-        .then((response: AxiosResponse) => {
-          if (response.status === 200) {
-            store.commit('LOG_IN');
-            localStorage.setItem('access_token', response.data.access_token);
-            localStorage.setItem('token_type', response.data.token_type);
-            router.push('/');
-          }
+      store.dispatch('LOGIN_REQUEST', data)
+        .then(() => {
+          router.push('/');
         })
-        .catch((error: AxiosError) => {
-          const errors = error.response?.data.errors || {};
+        .catch((response) => {
+          const errors = response?.data.errors || {};
           this.errors = {
             email: Array.isArray(errors.email) ? errors.email[0] : '',
             password: Array.isArray(errors.password) ? errors.password[0] : '',
           };
-          if (error.response?.data.message === 'Unauthorized') {
+          if (response?.data.message === 'Unauthorized') {
             this.errors = {
               email: 'Check if your email is correct',
               password: 'Check if your password is correct',
