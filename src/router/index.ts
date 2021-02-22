@@ -1,12 +1,16 @@
 import {
   createRouter,
-  createWebHashHistory, NavigationGuardNext,
+  createWebHashHistory, NavigationGuardNext, RouteLocationNormalized,
   RouteRecordRaw,
 } from 'vue-router';
 import store from '@/store';
 import Home from '../views/Home.vue';
 
-const ifNotAuthenticated = (to: object, from: object, next: NavigationGuardNext) => {
+const ifNotAuthenticated = (
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext,
+) => {
   if (!store.getters.isAuthenticated) {
     next();
     return;
@@ -14,7 +18,11 @@ const ifNotAuthenticated = (to: object, from: object, next: NavigationGuardNext)
   next('/');
 };
 
-const ifAuthenticated = (to: object, from: object, next: NavigationGuardNext) => {
+const ifAuthenticated = (
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext,
+) => {
   if (store.getters.isAuthenticated) {
     next();
     return;

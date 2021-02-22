@@ -1,7 +1,26 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { Commit, Dispatch } from 'vuex';
 
 interface State {
   token: string;
+}
+
+interface Response {
+  data: {
+    token_type: 'string';
+    access_token: 'string';
+  };
+}
+
+interface DataLogin {
+  email: string;
+  password: string;
+}
+
+interface DataRegister {
+  name: string;
+  email: string;
+  password: string;
 }
 
 const authModule = {
@@ -15,28 +34,39 @@ const authModule = {
     AUTH_LOGOUT: (state: State) => {
       state.token = '';
     },
-    AUTH_SUCCESS: (state: State, response: any) => {
+    AUTH_SUCCESS: (state: State, response: Response) => {
       state.token = `${response.data.token_type} ${response.data.access_token}`;
     },
   },
   actions: {
-    AUTH_LOGOUT: (store: any) => new Promise((resolve) => {
-      store.commit('AUTH_LOGOUT');
+    AUTH_LOGOUT: ({ commit }: { commit: Commit }) => new Promise((resolve) => {
+      commit('AUTH_LOGOUT');
       localStorage.removeItem('token');
       resolve();
     }),
-    USER_REQUEST: (store: any) => {
-      axios.get('http://localhost:8000/api/auth/user/')
+    USER_REQUEST: ({ dispatch }: { dispatch: Dispatch }) => {
+      axios.get('http://localhost:8000/api/auth/user/', {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
         .catch(() => {
-          store.dispatch('AUTH_LOGOUT');
+          dispatch('AUTH_LOGOUT');
         });
     },
-    LOGIN_REQUEST: (store: any, data: any) => new Promise((resolve, reject) => {
+    LOGIN_REQUEST: (
+      { commit }: { commit: Commit },
+      data: DataLogin,
+    ) => new Promise((resolve, reject) => {
       axios
-        .post('http://localhost:8000/api/auth/login/', data)
-        .then((response) => {
+        .post('http://localhost:8000/api/auth/login/', data, {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        })
+        .then((response: AxiosResponse) => {
           localStorage.setItem('token', `${response.data.token_type} ${response.data.access_token}`);
-          store.commit('AUTH_SUCCESS', response);
+          commit('AUTH_SUCCESS', response);
           // store.response(USER_REQUEST);
           resolve(response);
         })
@@ -45,18 +75,40 @@ const authModule = {
           reject(error.response);
         });
     }),
-    REGISTER_REQUEST: (store: any, data: any) => new Promise((resolve, reject) => {
+    REGISTER_REQUEST: (
+      { commit }: { commit: Commit },
+      data: DataRegister,
+    ) => new Promise((resolve, reject) => {
       axios
-        .post('http://localhost:8000/api/auth/register/', data)
-        .then((response) => {
+        .post('http://localhost:8000/api/auth/register/', data, {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        })
+        .then((response: AxiosResponse) => {
           localStorage.setItem('token', `${response.data.token_type} ${response.data.access_token}`);
-          store.commit('AUTH_SUCCESS', response);
+          commit('AUTH_SUCCESS', response);
           // store.response(USER_REQUEST);
           resolve(response);
         })
         .catch((error) => {
           localStorage.removeItem('token');
           reject(error.response);
+        });
+    }),
+    LOGOUT_REQUEST: (
+      { commit }: { commit: Commit },
+    ) => new Promise((resolve) => {
+      axios
+        .get('http://localhost:8000/api/auth/logout/', {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        })
+        .then((response: AxiosResponse) => {
+          localStorage.removeItem('token');
+          commit('AUTH_LOGOUT');
+          resolve(response);
         });
     }),
   },

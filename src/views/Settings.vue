@@ -1,18 +1,33 @@
 <template>
   <div class="page">
-    Settings
-    <router-link to="/login">Login</router-link>
-    <router-link to="/register">Register</router-link>
+    <Button
+      style-type="link"
+      @click="logout"
+    >Logout
+    </Button>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { Button } from '@/assets/fluntt-ui/';
+import store from '@/store';
+import router from '@/router';
 
 @Options({
-  components: {},
+  components: {
+    Button,
+  },
+  methods: {
+    logout() {
+      store.dispatch('LOGOUT_REQUEST').then(() => {
+        router.push('/login');
+      });
+    },
+  },
 })
-export default class Settings extends Vue {}
+export default class Settings extends Vue {
+}
 </script>
 
 <style scoped>

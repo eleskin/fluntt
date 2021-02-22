@@ -110,6 +110,7 @@ export default class Button extends Vue {}
   box-shadow: none;
   color: #4376F9;
   padding: 0;
+  width: fit-content;
 }
 
 .button-link::after {
