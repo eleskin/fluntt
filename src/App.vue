@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <Header/>
-<!--    <LoadScreen v-if="!isLoad"/>-->
-    <Navbar/>
+    <Navbar v-if="this.$store.getters.isAuthenticated"/>
     <router-view/>
   </div>
 </template>
@@ -11,21 +10,15 @@
 import { Options, Vue } from 'vue-class-component';
 import Header from '@/components/Header.vue';
 import Navbar from '@/components/Navbar.vue';
-import LoadScreen from '@/components/LoadScreen.vue';
-import store from '@/store';
 
 @Options({
-  data: () => ({
-    isLoad: false,
-  }),
   components: {
     Header,
     Navbar,
-    LoadScreen,
   },
   created() {
-    if (store.getters.isAuthenticated) {
-      store.dispatch('USER_REQUEST');
+    if (this.$store.getters.isAuthenticated) {
+      this.$store.dispatch('USER_REQUEST');
     }
   },
 })

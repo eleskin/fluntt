@@ -19,6 +19,8 @@ library.add(faLongArrowAltLeft, faBell, faHome, faWallet, faHistory, faSlidersH,
 
 const app = createApp(App);
 
+app.config.globalProperties.$store = store;
+
 app.component('font-awesome-icon', FontAwesomeIcon);
 
 app.use(store)

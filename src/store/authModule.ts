@@ -72,7 +72,7 @@ const authModule = {
         })
         .catch((error) => {
           localStorage.removeItem('token');
-          reject(error.response);
+          reject(error);
         });
     }),
     REGISTER_REQUEST: (

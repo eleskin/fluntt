@@ -46,13 +46,14 @@ export default class Navbar extends Vue {
     padding: 12px;
     border-radius: 4px;
     font-size: 16px;
-    color: #4376F9;
+    color: rgba(#424242, 0.5);
     text-decoration: none;
     transition: 0.2s ease-in-out;
     background: #FFFFFF;
   }
   .navbar__link.router-link-exact-active {
     background: rgba(67, 118, 249, 0.2);
+    color: #4376F9;
     transition: 0.2s ease-in-out;
   }
 }
