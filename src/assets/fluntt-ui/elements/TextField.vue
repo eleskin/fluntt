@@ -42,7 +42,7 @@ export default class TextField extends Vue {
 
   .text-field__wrapper {
     position: relative;
-    font-size: 16px;
+    font-size: 14px;
     display: inline;
 
     .text-field__input {
@@ -54,7 +54,7 @@ export default class TextField extends Vue {
       padding: 12px;
       outline: none;
       line-height: 100%;
-      font-size: 16px;
+      font-size: 14px;
       transition: 0.3s ease-in-out;
       -webkit-box-shadow: inset 0 0 0 50px #fff;
       -webkit-text-fill-color: #000;

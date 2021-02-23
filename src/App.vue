@@ -2,8 +2,8 @@
   <div class="container">
     <Header/>
     <ControlButtons v-if="this.$store.getters.isAuthenticated"/>
-    <Navbar v-if="this.$store.getters.isAuthenticated"/>
     <router-view/>
+    <Navbar v-if="this.$store.getters.isAuthenticated"/>
   </div>
 </template>
 

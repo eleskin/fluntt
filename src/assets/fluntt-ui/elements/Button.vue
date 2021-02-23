@@ -23,7 +23,7 @@ export default class Button extends Vue {}
   cursor: pointer;
   border-radius: 4px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 12px;
   padding: 18px 20px;
   line-height: 100%;
   text-transform: uppercase;
