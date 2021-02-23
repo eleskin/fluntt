@@ -1,5 +1,5 @@
 <template>
-  <button :class="`button button-${styleType}`">
+  <button :class="`button button-${styleType} ${showShadow && 'button-shadow'}`">
     <slot/>
   </button>
 </template>
@@ -9,7 +9,8 @@ import { Options, Vue } from 'vue-class-component';
 
 @Options({
   props: {
-    styleType: String,
+    styleType: '',
+    showShadow: false,
   },
 })
 export default class Button extends Vue {}
@@ -23,7 +24,7 @@ export default class Button extends Vue {}
   border-radius: 4px;
   font-weight: 600;
   font-size: 14px;
-  padding: 18px 24px;
+  padding: 18px 20px;
   line-height: 100%;
   text-transform: uppercase;
   outline: none;
@@ -43,6 +44,10 @@ export default class Button extends Vue {}
 .button-primary {
   background: #4376f9;
   color: #ffffff;
+}
+
+.button-primary.button-shadow {
+  box-shadow: 0 5px 10px rgba(#4376f9, 0.25);
 }
 
 .button-primary:hover {
@@ -71,6 +76,10 @@ export default class Button extends Vue {}
   color: #ffffff;
 }
 
+.button-success.button-shadow {
+  box-shadow: 0 5px 10px rgba(#00C12F, 0.25);
+}
+
 .button-success:hover {
   background: darken(#00C12F, 4%);
 }
@@ -79,6 +88,10 @@ export default class Button extends Vue {}
   background: #FAD30F;
   box-shadow: 0 5px 10px rgba(#FAD30F, 0.25);
   color: #000000;
+}
+
+.button-warning.button-shadow {
+  box-shadow: 0 5px 10px rgba(#FAD30F, 0.25);
 }
 
 .button-warning:hover {
@@ -91,6 +104,10 @@ export default class Button extends Vue {}
   color: #ffffff;
 }
 
+.button-danger.button-shadow {
+  box-shadow: 0 5px 10px rgba(#E32602, 0.25);
+}
+
 .button-danger:hover {
   background: darken(#E32602, 4%);
 }
@@ -99,6 +116,10 @@ export default class Button extends Vue {}
   background: #6003FD;
   box-shadow: 0 5px 10px rgba(#6003FD, 0.25);
   color: #ffffff;
+}
+
+.button-additional.button-shadow {
+  box-shadow: 0 5px 10px rgba(#6003FD, 0.25);
 }
 
 .button-additional:hover {

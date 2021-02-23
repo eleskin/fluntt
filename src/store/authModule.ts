@@ -3,12 +3,16 @@ import { Commit, Dispatch } from 'vuex';
 
 interface State {
   token: string;
+  user: {
+    name: string;
+  };
 }
 
 interface Response {
   data: {
-    token_type: 'string';
-    access_token: 'string';
+    token_type: string;
+    access_token: string;
+    name: string;
   };
 }
 
@@ -26,9 +30,13 @@ interface DataRegister {
 const authModule = {
   state: {
     token: localStorage.getItem('token') || '',
+    user: {
+      name: '',
+    },
   },
   getters: {
     isAuthenticated: (state: State) => !!state.token,
+    getUserName: (state: State) => state.user.name,
   },
   mutations: {
     AUTH_LOGOUT: (state: State) => {
@@ -36,6 +44,7 @@ const authModule = {
     },
     AUTH_SUCCESS: (state: State, response: Response) => {
       state.token = `${response.data.token_type} ${response.data.access_token}`;
+      state.user.name = response.data.name;
     },
   },
   actions: {
@@ -44,12 +53,15 @@ const authModule = {
       localStorage.removeItem('token');
       resolve();
     }),
-    USER_REQUEST: ({ dispatch }: { dispatch: Dispatch }) => {
+    USER_REQUEST: ({ commit, dispatch }: { commit: Commit; dispatch: Dispatch }) => {
       axios.get('http://localhost:8000/api/auth/user/', {
         headers: {
           Authorization: localStorage.getItem('token'),
         },
       })
+        .then((response: AxiosResponse) => {
+          commit('AUTH_SUCCESS', response);
+        })
         .catch(() => {
           dispatch('AUTH_LOGOUT');
         });
