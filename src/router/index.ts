@@ -56,6 +56,18 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: ifAuthenticated,
   },
   {
+    path: '/operation/income',
+    name: 'OperationIncome',
+    component: () => import('../views/Operation.vue'),
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: '/operation/expense',
+    name: 'OperationExpense',
+    component: () => import('../views/Operation.vue'),
+    beforeEnter: ifAuthenticated,
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
@@ -66,6 +78,10 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Register',
     component: () => import('../views/Register.vue'),
     beforeEnter: ifNotAuthenticated,
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/',
   },
 ];
 

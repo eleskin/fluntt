@@ -1,7 +1,11 @@
 <template>
   <div class="control-buttons">
-    <Button style-type="success">Add income</Button>
-    <Button style-type="danger">Add expense</Button>
+    <Button style-type="success" show-shadow="true">
+      <router-link to="/operation/income">Add income</router-link>
+    </Button>
+    <Button style-type="danger" show-shadow="true">
+      <router-link to="/operation/expense">Add expense</router-link>
+    </Button>
   </div>
 </template>
 

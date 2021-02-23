@@ -1,5 +1,5 @@
 <template>
-  <button :class="`button button-${styleType} ${showShadow && 'button-shadow'}`">
+  <button :class="`button button-${styleType} ${showShadow ? 'button-shadow' : ''}`">
     <slot/>
   </button>
 </template>
@@ -16,7 +16,7 @@ import { Options, Vue } from 'vue-class-component';
 export default class Button extends Vue {}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .button {
   margin: 12px 0;
   width: 100%;
@@ -30,6 +30,12 @@ export default class Button extends Vue {}
   outline: none;
   border: 1px solid transparent;
   transition: 0.2s ease-in-out;
+  color: #FFFFFF;
+  text-decoration: none;
+  a {
+    text-decoration: inherit;
+    color: inherit;
+  }
 }
 
 .button:hover {

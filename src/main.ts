@@ -20,6 +20,7 @@ library.add(faLongArrowAltLeft, faBell, faHome, faWallet, faHistory, faSlidersH,
 const app = createApp(App);
 
 app.config.globalProperties.$store = store;
+app.config.globalProperties.$router = router;
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 

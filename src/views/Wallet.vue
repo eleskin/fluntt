@@ -1,12 +1,16 @@
 <template>
   <div class="page">Wallet</div>
+  <ControlButtons/>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import ControlButtons from '@/components/ControlButtons.vue';
 
 @Options({
-  components: {},
+  components: {
+    ControlButtons,
+  },
 })
 export default class Wallet extends Vue {}
 </script>

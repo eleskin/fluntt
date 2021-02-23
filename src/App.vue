@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <Header/>
-    <ControlButtons v-if="this.$store.getters.isAuthenticated"/>
     <router-view/>
     <Navbar v-if="this.$store.getters.isAuthenticated"/>
   </div>
@@ -11,13 +10,11 @@
 import { Options, Vue } from 'vue-class-component';
 import Header from '@/components/Header.vue';
 import Navbar from '@/components/Navbar.vue';
-import ControlButtons from '@/components/ControlButtons.vue';
 
 @Options({
   components: {
     Header,
     Navbar,
-    ControlButtons,
   },
   created() {
     if (this.$store.getters.isAuthenticated) {
