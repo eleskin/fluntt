@@ -24,8 +24,8 @@ export default class Button extends Vue {}
   border-radius: 4px;
   font-weight: 600;
   font-size: 12px;
-  padding: 18px 20px;
   line-height: 100%;
+  height: 40px;
   text-transform: uppercase;
   outline: none;
   border: 1px solid transparent;
@@ -35,6 +35,12 @@ export default class Button extends Vue {}
   a {
     text-decoration: inherit;
     color: inherit;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }
 

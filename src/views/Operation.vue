@@ -20,6 +20,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { TextField, Button } from '@/assets/fluntt-ui/index';
+import axios from 'axios';
 
 enum Type {
   Income = 'income',
@@ -49,7 +50,13 @@ interface Data {
         category: this.category,
       };
       if (data.value && data.category) {
-        console.log(data, type);
+        axios
+          .post(`http://localhost:8000/api/operations/${type}/`, data, {
+            headers: {
+              Authorization: localStorage.getItem('token'),
+            },
+          })
+          .then((response) => console.log(response));
       }
     },
   },
