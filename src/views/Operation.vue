@@ -21,6 +21,7 @@
 import { Options, Vue } from 'vue-class-component';
 import { TextField, Button } from '@/assets/fluntt-ui/index';
 import axios from 'axios';
+import store from '@/store';
 
 enum Type {
   Income = 'income',
@@ -30,6 +31,7 @@ enum Type {
 interface Data {
   value: number;
   category: string;
+  userId: number;
 }
 
 @Options({
@@ -48,6 +50,7 @@ interface Data {
       const data: Data = {
         value: this.value,
         category: this.category,
+        userId: store.getters.getId,
       };
       if (data.value && data.category) {
         axios

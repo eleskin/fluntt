@@ -85,6 +85,6 @@ export default class Register extends Vue {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

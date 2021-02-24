@@ -4,7 +4,7 @@
     <div class="profile__indicators">
       <div class="profile__indicator">
         <i>My balance</i>
-        <span>1400 USD</span>
+        <span>2300 USD</span>
       </div>
 <!--      <div class="profile__indicator">-->
 <!--        <i>My budget</i>-->

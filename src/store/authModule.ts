@@ -4,6 +4,7 @@ import { Commit, Dispatch } from 'vuex';
 interface State {
   token: string;
   user: {
+    id: number;
     name: string;
   };
 }
@@ -12,6 +13,7 @@ interface Response {
   data: {
     token_type: string;
     access_token: string;
+    id: number;
     name: string;
   };
 }
@@ -31,12 +33,14 @@ const authModule = {
   state: {
     token: localStorage.getItem('token') || '',
     user: {
+      id: null,
       name: '',
     },
   },
   getters: {
     isAuthenticated: (state: State) => !!state.token,
     getUserName: (state: State) => state.user.name,
+    getId: (state: State) => state.user.id,
   },
   mutations: {
     AUTH_LOGOUT: (state: State) => {
@@ -44,6 +48,7 @@ const authModule = {
     },
     AUTH_SUCCESS: (state: State, response: Response) => {
       state.token = `${response.data.token_type} ${response.data.access_token}`;
+      state.user.id = response.data.id;
       state.user.name = response.data.name;
     },
   },
@@ -84,7 +89,7 @@ const authModule = {
         })
         .catch((error) => {
           localStorage.removeItem('token');
-          reject(error);
+          reject(error.response);
         });
     }),
     REGISTER_REQUEST: (

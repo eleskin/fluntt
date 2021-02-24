@@ -25,18 +25,24 @@ export default class Button extends Vue {}
   font-weight: 600;
   font-size: 12px;
   line-height: 100%;
-  height: 40px;
+  min-height: 40px;
   text-transform: uppercase;
   outline: none;
   border: 1px solid transparent;
   transition: 0.2s ease-in-out;
   color: #FFFFFF;
   text-decoration: none;
+  position: relative;
   a {
     text-decoration: inherit;
     color: inherit;
     height: 100%;
     width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -144,6 +150,7 @@ export default class Button extends Vue {}
   color: #4376F9;
   padding: 0;
   width: fit-content;
+  min-height: auto;
 }
 
 .button-link::after {
