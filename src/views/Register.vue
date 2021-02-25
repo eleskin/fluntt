@@ -1,7 +1,7 @@
 <template>
   <div class="page page-sign">
-    <h2 class="title title-2">Sign up</h2>
-    <form class="page-sign__form" @submit="register">
+    <FormGroup @submit="register">
+      <h2 class="title title-2">Sign up</h2>
       <TextField
         placeholder="Your name"
         type="text"
@@ -24,8 +24,8 @@
         @input="data.password = $event.target.value; errors.password = '';"
       />
       <Button style-type="primary">Create account</Button>
-    </form>
-    <router-link class="page-sign__link" to="/login">Sign in</router-link>
+      <Button style-type="link" to="/login">Sign in</Button>
+    </FormGroup>
   </div>
 </template>
 
@@ -34,6 +34,7 @@ import { Options, Vue } from 'vue-class-component';
 import { Button, TextField } from '@/assets/fluntt-ui';
 import store from '@/store/index';
 import router from '@/router';
+import FormGroup from '@/components/FormGroup.vue';
 
 interface Data {
   name: string;
@@ -53,6 +54,7 @@ interface Data {
   components: {
     Button,
     TextField,
+    FormGroup,
   },
   methods: {
     register(event: Event) {

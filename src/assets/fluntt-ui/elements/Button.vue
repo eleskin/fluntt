@@ -1,6 +1,7 @@
 <template>
   <button :class="`button button-${styleType} ${showShadow ? 'button-shadow' : ''}`">
-    <slot/>
+    <slot v-if="!to"/>
+    <router-link v-if="to" :to="to"><slot/></router-link>
   </button>
 </template>
 
@@ -11,6 +12,7 @@ import { Options, Vue } from 'vue-class-component';
   props: {
     styleType: '',
     showShadow: false,
+    to: '',
   },
 })
 export default class Button extends Vue {}
@@ -18,7 +20,7 @@ export default class Button extends Vue {}
 
 <style lang="scss">
 .button {
-  margin: 12px 0;
+  //margin: 12px 0;
   width: 100%;
   cursor: pointer;
   border-radius: 4px;
@@ -38,11 +40,6 @@ export default class Button extends Vue {}
     color: inherit;
     height: 100%;
     width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;

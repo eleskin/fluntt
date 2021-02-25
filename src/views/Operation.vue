@@ -1,20 +1,22 @@
 <template>
-  <form class="page" @submit="(event) => addOperation(event, operationType)">
-    <h2 class="title title-2">Add {{ operationType }}</h2>
-    <TextField
-      type="number"
-      placeholder="Enter value"
-      :value="value"
-      @input="value = $event.target.value;"
-    />
-    <TextField
-      type="text"
-      placeholder="Enter category"
-      :value="category"
-      @input="category = $event.target.value;"
-    />
-    <Button style-type="primary">Add {{ operationType }}</Button>
-  </form>
+  <div class="page">
+    <FormGroup @submit="(event) => addOperation(event, operationType)">
+      <h2 class="title title-2">Add {{ operationType }}</h2>
+      <TextField
+        type="number"
+        placeholder="Enter value"
+        :value="value"
+        @input="value = $event.target.value;"
+      />
+      <TextField
+        type="text"
+        placeholder="Enter category"
+        :value="category"
+        @input="category = $event.target.value;"
+      />
+      <Button style-type="primary">Add {{ operationType }}</Button>
+    </FormGroup>
+  </div>
 </template>
 
 <script lang="ts">
@@ -22,6 +24,7 @@ import { Options, Vue } from 'vue-class-component';
 import { TextField, Button } from '@/assets/fluntt-ui/index';
 import axios from 'axios';
 import store from '@/store';
+import FormGroup from '@/components/FormGroup.vue';
 
 enum Type {
   Income = 'income',
@@ -42,6 +45,7 @@ interface Data {
   components: {
     TextField,
     Button,
+    FormGroup,
   },
   props: {},
   methods: {

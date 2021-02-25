@@ -1,10 +1,6 @@
 <template>
   <div class="page">
-    <Button
-      style-type="link"
-      @click="logout"
-    >Logout
-    </Button>
+    <Button style-type="link" @click="logout">Logout</Button>
   </div>
 </template>
 
@@ -20,9 +16,10 @@ import router from '@/router';
   },
   methods: {
     logout() {
-      store.dispatch('LOGOUT_REQUEST').then(() => {
-        router.push('/login');
-      });
+      store.dispatch('LOGOUT_REQUEST')
+        .then(() => {
+          router.push('/login');
+        });
     },
   },
 })

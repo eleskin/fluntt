@@ -8,7 +8,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { Button, TextField } from '@/assets/fluntt-ui';
-import Profile from '@/components/Profile.vue';
+import Profile from '@/components/Home/Profile.vue';
 import ControlButtons from '@/components/ControlButtons.vue';
 
 @Options({

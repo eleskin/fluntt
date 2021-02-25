@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { Skeleton } from '@/assets/fluntt-ui/index';
+import { Skeleton } from '@/assets/fluntt-ui';
 
 @Options({
   components: {

@@ -1,11 +1,7 @@
 <template>
   <div class="control-buttons">
-    <Button style-type="success" show-shadow="true">
-      <router-link to="/operation/income">Add income</router-link>
-    </Button>
-    <Button style-type="danger" show-shadow="true">
-      <router-link to="/operation/expense">Add expense</router-link>
-    </Button>
+    <Button style-type="success" to="/operation/income" show-shadow="true">Add income</Button>
+    <Button style-type="danger" to="/operation/expense" show-shadow="true">Add expense</Button>
   </div>
 </template>
 
@@ -25,7 +21,7 @@ export default class ControlButtons extends Vue {}
 .control-buttons {
   position: absolute;
   width: 100%;
-  bottom: 58px;
+  bottom: 70px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

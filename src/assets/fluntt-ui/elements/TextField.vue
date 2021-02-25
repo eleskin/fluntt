@@ -37,7 +37,6 @@ export default class TextField extends Vue {
 .text-field {
   display: flex;
   flex-direction: column;
-  padding: 12px 0;
   width: 100%;
 
   .text-field__wrapper {
