@@ -1,7 +1,7 @@
 <template>
   <div class="control-buttons">
-    <Button style-type="success" to="/operation/income" show-shadow="true">Add income</Button>
-    <Button style-type="danger" to="/operation/expense" show-shadow="true">Add expense</Button>
+    <Button style-type="success" to="/operation/income" :show-shadow="true">Add income</Button>
+    <Button style-type="danger" to="/operation/expense" :show-shadow="true">Add expense</Button>
   </div>
 </template>
 
