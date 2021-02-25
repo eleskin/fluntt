@@ -1,6 +1,6 @@
 <template>
   <div class="profile">
-    <span class="profile__name"><Skeleton v-if="!userName" height="16px"/> {{ userName }}</span>
+    <span class="profile__name"><Skeleton v-if="!userName" height="16"/> {{ userName }}</span>
     <div class="profile__indicators">
       <div class="profile__indicator">
         <i>My balance</i>
@@ -27,7 +27,7 @@ import { Skeleton } from '@/assets/fluntt-ui';
     Skeleton,
   },
   props: {
-    userName: '',
+    userName: String,
   },
 })
 export default class Profile extends Vue {}

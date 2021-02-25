@@ -7,11 +7,11 @@ import { Options, Vue } from 'vue-class-component';
 
 @Options({
   props: {
-    height: '',
+    height: Number,
   },
   computed: {
     style() {
-      return `height: ${this.height}`;
+      return `height: ${this.height}px`;
     },
   },
 })

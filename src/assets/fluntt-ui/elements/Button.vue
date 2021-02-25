@@ -10,9 +10,9 @@ import { Options, Vue } from 'vue-class-component';
 
 @Options({
   props: {
-    styleType: '',
-    showShadow: false,
-    to: '',
+    styleType: String,
+    showShadow: Boolean,
+    to: String,
   },
 })
 export default class Button extends Vue {}

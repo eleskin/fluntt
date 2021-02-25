@@ -19,11 +19,11 @@ import { Options, Vue } from 'vue-class-component';
 
 @Options({
   props: {
-    placeholder: '',
-    type: '',
-    error: '',
-    required: null,
-    value: '',
+    placeholder: String,
+    type: String,
+    error: String,
+    required: Boolean,
+    value: String,
   },
   data: () => ({
     name: '',
