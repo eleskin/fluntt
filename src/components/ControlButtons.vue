@@ -21,7 +21,8 @@ export default class ControlButtons extends Vue {}
 .control-buttons {
   position: absolute;
   width: 100%;
-  bottom: 70px;
+  bottom: 0;
+  margin-bottom: 12px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

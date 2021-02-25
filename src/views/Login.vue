@@ -1,10 +1,10 @@
 <template>
-  <div class="page page-sign">
+  <div class="page">
     <FormGroup @submit="login">
       <h2 class="title title-2">Sign in</h2>
       <TextField
         placeholder="Email"
-        type="text"
+        type="email"
         :error="errors.email"
         :value="data.email"
         @input="data.email = $event.target.value; errors.email = '';"

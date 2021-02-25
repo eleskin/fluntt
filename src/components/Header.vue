@@ -17,10 +17,8 @@ export default class Header extends Vue {
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 .header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
+  //grid-area: header;
+  height: 60px;
   width: 100%;
   background: #FFFFFF;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);

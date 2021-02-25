@@ -1,5 +1,5 @@
 <template>
-  <div class="page">History</div>
+  <div class="page page-with-buttons">History</div>
   <ControlButtons/>
 </template>
 

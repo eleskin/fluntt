@@ -12,9 +12,19 @@ html, body {
 }
 
 .page {
-  min-height: 100vh;
+  height: 100%;
+  overflow-y: scroll;
   box-sizing: border-box;
-  padding: 60px 12px 68px 12px;
+  padding: 12px;
+}
+
+.page-with-buttons {
+  padding-bottom: 64px;
+}
+
+.grid {
+  display: grid;
+  grid-gap: 12px;
 }
 
 .page-sign {
@@ -27,7 +37,7 @@ html, body {
 
 .title {
   font-weight: bold;
-  margin: 0 0 16px 0;
+  margin: 0;
 }
 
 .title-2 {

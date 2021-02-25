@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <Header/>
-    <router-view/>
+    <div class="main">
+      <router-view/>
+    </div>
     <Navbar v-if="this.$store.getters.isAuthenticated"/>
   </div>
 </template>
@@ -28,6 +30,19 @@ export default class App extends Vue {
 
 <style lang="scss">
 .container {
-  position: relative;
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  //grid-template-areas:
+  //  'header'
+  //  'main'
+  //  'navbar';
+  .main {
+    //grid-area: main;
+    overflow-y: scroll;
+    height: 100%;
+    position: relative;
+  }
 }
 </style>

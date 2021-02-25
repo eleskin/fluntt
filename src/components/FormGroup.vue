@@ -1,17 +1,21 @@
 <template>
-  <form class="form">
-    <slot></slot>
-  </form>
+  <div class="grid">
+    <form class="form" novalidate>
+      <div class="grid">
+        <slot></slot>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
-  components: {
-  },
+  components: {},
 })
-export default class FormGroup extends Vue {}
+export default class FormGroup extends Vue {
+}
 </script>
 
 <style lang="scss">
@@ -19,8 +23,7 @@ export default class FormGroup extends Vue {}
   width: 100%;
   display: flex;
   flex-direction: column;
-  .text-field, .button {
-    margin-bottom: 12px;
-  }
+  justify-content: center;
+  height: 100%;
 }
 </style>

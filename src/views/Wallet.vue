@@ -1,5 +1,5 @@
 <template>
-  <div class="page">Wallet</div>
+  <div class="page page-with-buttons">Wallet</div>
   <ControlButtons/>
 </template>
 

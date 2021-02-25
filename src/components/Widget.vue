@@ -20,11 +20,10 @@ export default class Widget extends Vue {}
 
 <style lang="scss" scoped>
 .widget {
-  margin: 12px 0;
   .widget__title {
     font-weight: 600;
     font-size: 14px;
-    margin-bottom: 8px;
+    margin: 0 0 8px 0;
     color: #212121;
   }
   .widget__card {

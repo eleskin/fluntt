@@ -28,14 +28,12 @@ export default class Navbar extends Vue {
 
 <style lang="scss" scoped>
 .navbar {
+  //grid-area: navbar;
   padding: 6px 12px;
   background: #FFFFFF;
   box-shadow: 0px -3px 3px rgba(0, 0, 0, 0.05);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   width: 100%;
+  height: 68px;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;

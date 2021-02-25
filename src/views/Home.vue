@@ -1,7 +1,9 @@
 <template>
-  <div class="page">
-    <Profile :user-name="this.$store.getters.getUserName" />
-    <LatestActivity/>
+  <div class="page page-with-buttons">
+    <div class="grid">
+      <Profile :user-name="this.$store.getters.getUserName"/>
+      <LatestActivity/>
+    </div>
   </div>
   <ControlButtons/>
 </template>
@@ -22,5 +24,6 @@ import LatestActivity from '@/components/Home/LatestActivity.vue';
     LatestActivity,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+}
 </script>
