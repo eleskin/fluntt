@@ -1,4 +1,4 @@
-import { Commit, Getter, GetterTree } from 'vuex';
+import { Commit } from 'vuex';
 import axios from 'axios';
 
 interface State {
@@ -18,15 +18,17 @@ interface Data {
   type: Type;
 }
 
+interface Operation {
+  id: number;
+  category: string;
+  type: Type;
+  userId: number;
+  value: number;
+}
+
 interface Response {
   data: {
-    operation: {
-      id: number;
-      category: string;
-      type: Type;
-      userId: number;
-      value: number;
-    };
+    operation: Operation;
   };
 }
 
@@ -48,6 +50,15 @@ const operationsModule = {
         state.expenses.push(response.data.operation);
       }
     },
+    SET_OPERATIONS: (
+      state: State, {
+        incomes,
+        expenses,
+      }: { incomes: Array<Operation>; expenses: Array<Operation> },
+    ) => {
+      incomes.forEach((income) => state.incomes.push(income));
+      expenses.forEach((expense) => state.expenses.push(expense));
+    },
   },
   actions: {
     ADD_OPERATION: (
@@ -68,7 +79,7 @@ const operationsModule = {
     GET_OPERATIONS: (
       { commit }: { commit: Commit },
       userId: number,
-    ) => new Promise((resolve) => {
+    ) => new Promise(() => {
       axios
         .get('http://localhost:8000/api/operations/', {
           headers: {
@@ -77,7 +88,15 @@ const operationsModule = {
           },
         })
         .then((response) => {
-          console.log(response);
+          const incomes = response.data.operations.filter(
+            (operation: Operation) => operation.type === Type.Income,
+          );
+
+          const expenses = response.data.operations.filter(
+            (operation: Operation) => operation.type === Type.Expense,
+          );
+          commit('SET_OPERATIONS', { incomes, expenses });
+
           // commit('ADD_OPERATION', response);
           // resolve(response);
         });
