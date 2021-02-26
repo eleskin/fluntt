@@ -1,24 +1,26 @@
 <template>
-  <div class="page">
-    <FormGroup @submit="login">
-      <h2 class="title title-2">Sign in</h2>
-      <TextField
-        placeholder="Email"
-        type="email"
-        :error="errors.email"
-        :value="data.email"
-        @input="data.email = $event.target.value; errors.email = '';"
-      />
-      <TextField
-        placeholder="Password"
-        type="password"
-        :error="errors.password"
-        :value="data.password"
-        @input="data.password = $event.target.value; errors.password = '';"
-      />
-      <Button style-type="primary">Log in</Button>
-      <Button style-type="link" to="/register">Register now</Button>
-    </FormGroup>
+  <div class="center">
+    <div class="page">
+      <FormGroup @submit="login">
+        <h2 class="title title-2">Sign in</h2>
+        <TextField
+          placeholder="Email"
+          type="email"
+          :error="errors.email"
+          :value="data.email"
+          @input="data.email = $event.target.value; errors.email = '';"
+        />
+        <TextField
+          placeholder="Password"
+          type="password"
+          :error="errors.password"
+          :value="data.password"
+          @input="data.password = $event.target.value; errors.password = '';"
+        />
+        <Button style-type="primary">Log in</Button>
+        <Button style-type="link" to="/register">Register now</Button>
+      </FormGroup>
+    </div>
   </div>
 </template>
 
@@ -82,9 +84,4 @@ export default class Login extends Vue {
 </script>
 
 <style lang="scss" scoped>
-//.page-sign__link {
-//  font-size: 14px;
-//  color: #4376F9;
-//  display: inline-block;
-//}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="grid">
+  <div>
     <form class="form" novalidate>
       <div class="grid">
         <slot></slot>

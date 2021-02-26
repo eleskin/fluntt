@@ -22,9 +22,9 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import { TextField, Button } from '@/assets/fluntt-ui/index';
-import axios from 'axios';
 import store from '@/store';
 import FormGroup from '@/components/FormGroup.vue';
+import router from '@/router';
 
 enum Type {
   Income = 'income',
@@ -35,6 +35,7 @@ interface Data {
   value: number;
   category: string;
   userId: number;
+  type: Type;
 }
 
 @Options({
@@ -55,15 +56,12 @@ interface Data {
         value: this.value,
         category: this.category,
         userId: store.getters.getId,
+        type,
       };
       if (data.value && data.category) {
-        axios
-          .post(`http://localhost:8000/api/operations/${type}/`, data, {
-            headers: {
-              Authorization: localStorage.getItem('token'),
-            },
-          })
-          .then((response) => console.log(response));
+        store.dispatch('ADD_OPERATION', data).then(() => {
+          router.push('/');
+        });
       }
     },
   },

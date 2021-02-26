@@ -58,7 +58,12 @@ const authModule = {
       localStorage.removeItem('token');
       resolve();
     }),
-    USER_REQUEST: ({ commit, dispatch }: { commit: Commit; dispatch: Dispatch }) => {
+    USER_REQUEST: (
+      {
+        commit,
+        dispatch,
+      }: { commit: Commit; dispatch: Dispatch },
+    ) => new Promise((resolve, reject) => {
       axios.get('http://localhost:8000/api/auth/user/', {
         headers: {
           Authorization: localStorage.getItem('token'),
@@ -66,11 +71,13 @@ const authModule = {
       })
         .then((response: AxiosResponse) => {
           commit('AUTH_SUCCESS', response);
+          resolve(response);
         })
         .catch(() => {
           dispatch('AUTH_LOGOUT');
+          reject();
         });
-    },
+    }),
     LOGIN_REQUEST: (
       { commit }: { commit: Commit },
       data: DataLogin,

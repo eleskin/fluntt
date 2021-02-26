@@ -1,31 +1,33 @@
 <template>
-  <div class="page">
-    <FormGroup @submit="register">
-      <h2 class="title title-2">Sign up</h2>
-      <TextField
-        placeholder="Your name"
-        type="text"
-        :error="errors.name"
-        :value="data.name"
-        @input="data.name = $event.target.value; errors.name = '';"
-      />
-      <TextField
-        placeholder="Your email"
-        type="email"
-        :error="errors.email"
-        :value="data.email"
-        @input="data.email = $event.target.value; errors.email = '';"
-      />
-      <TextField
-        placeholder="Password"
-        type="password"
-        :error="errors.password"
-        :value="data.password"
-        @input="data.password = $event.target.value; errors.password = '';"
-      />
-      <Button style-type="primary">Create account</Button>
-      <Button style-type="link" to="/login">Sign in</Button>
-    </FormGroup>
+  <div class="center">
+    <div class="page">
+      <FormGroup @submit="register">
+        <h2 class="title title-2">Sign up</h2>
+        <TextField
+          placeholder="Your name"
+          type="text"
+          :error="errors.name"
+          :value="data.name"
+          @input="data.name = $event.target.value; errors.name = '';"
+        />
+        <TextField
+          placeholder="Your email"
+          type="email"
+          :error="errors.email"
+          :value="data.email"
+          @input="data.email = $event.target.value; errors.email = '';"
+        />
+        <TextField
+          placeholder="Password"
+          type="password"
+          :error="errors.password"
+          :value="data.password"
+          @input="data.password = $event.target.value; errors.password = '';"
+        />
+        <Button style-type="primary">Create account</Button>
+        <Button style-type="link" to="/login">Sign in</Button>
+      </FormGroup>
+    </div>
   </div>
 </template>
 

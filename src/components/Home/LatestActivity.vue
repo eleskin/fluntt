@@ -2,7 +2,9 @@
   <div class="latest-activity">
     <Widget title="Latest activity">
       <div class="latest-activity__container">
-        <h4 class="latest-activity__title">25 Feb</h4>
+<!--        <h4 class="latest-activity__title">25 Feb</h4>-->
+        {{ $store.getters.getIncomes }}
+        {{ $store.getters.getExpenses }}
       </div>
     </Widget>
   </div>

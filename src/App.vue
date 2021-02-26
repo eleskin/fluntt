@@ -12,6 +12,7 @@
 import { Options, Vue } from 'vue-class-component';
 import Header from '@/components/Header.vue';
 import Navbar from '@/components/Navbar.vue';
+import { AxiosResponse } from 'axios';
 
 @Options({
   components: {
@@ -20,7 +21,10 @@ import Navbar from '@/components/Navbar.vue';
   },
   created() {
     if (this.$store.getters.isAuthenticated) {
-      this.$store.dispatch('USER_REQUEST');
+      this.$store.dispatch('USER_REQUEST')
+        .then((response: AxiosResponse) => {
+          this.$store.dispatch('GET_OPERATIONS', response.data.id);
+        });
     }
   },
 })
@@ -34,15 +38,22 @@ export default class App extends Vue {
   height: 100vh;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
-  //grid-template-areas:
-  //  'header'
-  //  'main'
-  //  'navbar';
+
   .main {
-    //grid-area: main;
     overflow-y: scroll;
     height: 100%;
     position: relative;
+
+    .center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+
+      .page {
+        height: auto;
+      }
+    }
   }
 }
 </style>
