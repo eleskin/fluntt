@@ -1,7 +1,10 @@
 <template>
   <div class="page page-with-buttons">
     <div class="grid">
-      <Profile :user-name="this.$store.getters.getUserName"/>
+      <Profile
+        :user-name="this.$store.getters.getUserName"
+        :balance="this.$store.getters.getBalance"
+      />
       <LatestActivity/>
     </div>
   </div>

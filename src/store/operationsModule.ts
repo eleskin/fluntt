@@ -1,10 +1,5 @@
 import { Commit } from 'vuex';
-import axios from 'axios';
-
-interface State {
-  incomes: Array<object>;
-  expenses: Array<object>;
-}
+import axios, { AxiosResponse } from 'axios';
 
 enum Type {
   Income = 'income',
@@ -24,6 +19,8 @@ interface Operation {
   type: Type;
   userId: number;
   value: number;
+  created_at: string;
+  date?: string;
 }
 
 interface Response {
@@ -32,32 +29,43 @@ interface Response {
   };
 }
 
+interface State {
+  operations: Array<Operation>;
+}
+
 const operationsModule = {
   state: {
-    incomes: [],
-    expenses: [],
+    operations: [],
   },
   getters: {
-    getIncomes: (state: State) => state.incomes,
-    getExpenses: (state: State) => state.expenses,
+    getOperations: (state: State) => {
+      const { operations } = state;
+      return operations;
+    },
+    getBalance: (state: State) => {
+      let balance: number;
+      if (state.operations.length) {
+        balance = 0;
+
+        state.operations.forEach((operaion) => {
+          if (operaion.type === Type.Income) balance += operaion.value;
+          if (operaion.type === Type.Expense) balance -= operaion.value;
+        });
+        return `${balance}`;
+      }
+      return '';
+    },
   },
   mutations: {
     ADD_OPERATION: (state: State, response: Response) => {
-      if (response.data.operation.type === Type.Income) {
-        state.incomes.push(response.data.operation);
-      }
-      if (response.data.operation.type === Type.Expense) {
-        state.expenses.push(response.data.operation);
-      }
+      state.operations.push(response.data.operation);
     },
     SET_OPERATIONS: (
       state: State, {
-        incomes,
-        expenses,
-      }: { incomes: Array<Operation>; expenses: Array<Operation> },
+        operations,
+      }: { operations: Array<Operation> },
     ) => {
-      incomes.forEach((income) => state.incomes.push(income));
-      expenses.forEach((expense) => state.expenses.push(expense));
+      operations.forEach((operation) => state.operations.push(operation));
     },
   },
   actions: {
@@ -87,18 +95,8 @@ const operationsModule = {
             'user-id': userId,
           },
         })
-        .then((response) => {
-          const incomes = response.data.operations.filter(
-            (operation: Operation) => operation.type === Type.Income,
-          );
-
-          const expenses = response.data.operations.filter(
-            (operation: Operation) => operation.type === Type.Expense,
-          );
-          commit('SET_OPERATIONS', { incomes, expenses });
-
-          // commit('ADD_OPERATION', response);
-          // resolve(response);
+        .then((response: AxiosResponse) => {
+          commit('SET_OPERATIONS', { operations: response.data.operations });
         });
     }),
   },

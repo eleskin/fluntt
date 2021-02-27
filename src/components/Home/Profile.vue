@@ -4,7 +4,7 @@
     <div class="profile__indicators">
       <div class="profile__indicator">
         <i>My balance</i>
-        <span>2300 USD</span>
+        <span><Skeleton v-if="!balance" :height="16"/> {{ balance ? `${balance} USD` : '' }}</span>
       </div>
 <!--      <div class="profile__indicator">-->
 <!--        <i>My budget</i>-->
@@ -28,6 +28,7 @@ import { Skeleton } from '@/assets/fluntt-ui';
   },
   props: {
     userName: String,
+    balance: String,
   },
 })
 export default class Profile extends Vue {}
@@ -60,7 +61,8 @@ export default class Profile extends Vue {}
         color: rgba(255, 255, 255, 0.5);
       }
       span {
-        font-size: 18px;
+        font-size: 16px;
+        line-height: 100%;
         color: #FFFFFF;
       }
     }
