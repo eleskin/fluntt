@@ -64,7 +64,7 @@ const authModule = {
         dispatch,
       }: { commit: Commit; dispatch: Dispatch },
     ) => new Promise((resolve, reject) => {
-      axios.get('http://localhost:8000/api/auth/user/', {
+      axios.get('http://localhost:8000/api/auth/user', {
         headers: {
           Authorization: localStorage.getItem('token'),
         },
@@ -83,7 +83,7 @@ const authModule = {
       data: DataLogin,
     ) => new Promise((resolve, reject) => {
       axios
-        .post('http://localhost:8000/api/auth/login/', data, {
+        .post('http://localhost:8000/api/auth/login', data, {
           headers: {
             Authorization: localStorage.getItem('token'),
           },
@@ -104,7 +104,7 @@ const authModule = {
       data: DataRegister,
     ) => new Promise((resolve, reject) => {
       axios
-        .post('http://localhost:8000/api/auth/register/', data, {
+        .post('http://localhost:8000/api/auth/register', data, {
           headers: {
             Authorization: localStorage.getItem('token'),
           },
@@ -124,7 +124,7 @@ const authModule = {
       { commit }: { commit: Commit },
     ) => new Promise((resolve) => {
       axios
-        .get('http://localhost:8000/api/auth/logout/', {
+        .get('http://localhost:8000/api/auth/logout', {
           headers: {
             Authorization: localStorage.getItem('token'),
           },

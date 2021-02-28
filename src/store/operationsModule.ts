@@ -71,7 +71,7 @@ const operationsModule = {
       data: Data,
     ) => new Promise((resolve) => {
       axios
-        .post('http://localhost:8000/api/operations/add/', data, {
+        .post('http://localhost:8000/api/operations/add', data, {
           headers: {
             Authorization: localStorage.getItem('token'),
           },
@@ -86,7 +86,7 @@ const operationsModule = {
       userId: number,
     ) => new Promise(() => {
       axios
-        .get('http://localhost:8000/api/operations/', {
+        .get('http://localhost:8000/api/operations', {
           headers: {
             Authorization: localStorage.getItem('token'),
             'user-id': userId,
