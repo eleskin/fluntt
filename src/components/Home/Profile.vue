@@ -4,7 +4,7 @@
     <div class="profile__indicators">
       <div class="profile__indicator">
         <i>My balance</i>
-        <span><Skeleton v-if="!balance" :height="16"/> {{ balance ? `${balance} USD` : '' }}</span>
+        <span>{{ balance }} USD</span>
       </div>
 <!--      <div class="profile__indicator">-->
 <!--        <i>My budget</i>-->

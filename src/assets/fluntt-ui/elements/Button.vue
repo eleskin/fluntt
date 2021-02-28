@@ -21,6 +21,7 @@ export default class Button extends Vue {}
 <style lang="scss">
 .button {
   //margin: 12px 0;
+  padding: 0;
   width: 100%;
   cursor: pointer;
   border-radius: 4px;
@@ -44,6 +45,11 @@ export default class Button extends Vue {}
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
 }
 

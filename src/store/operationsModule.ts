@@ -43,22 +43,19 @@ const operationsModule = {
       return operations;
     },
     getBalance: (state: State) => {
-      let balance: number;
+      let balance = 0;
       if (state.operations.length) {
-        balance = 0;
-
         state.operations.forEach((operaion) => {
           if (operaion.type === Type.Income) balance += operaion.value;
           if (operaion.type === Type.Expense) balance -= operaion.value;
         });
-        return `${balance}`;
       }
-      return '';
+      return balance;
     },
   },
   mutations: {
     ADD_OPERATION: (state: State, response: Response) => {
-      state.operations.push(response.data.operation);
+      state.operations = [response.data.operation, ...state.operations];
     },
     SET_OPERATIONS: (
       state: State, {
