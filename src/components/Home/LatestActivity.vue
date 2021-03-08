@@ -18,6 +18,9 @@
               <span class="operation__category">{{ item.category }}</span>
               <span class="operation__value">{{ item.value }} USD</span>
             </div>
+            <div class="operation__control">
+              <button>Delete</button>
+            </div>
           </li>
         </ul>
       </div>
@@ -50,11 +53,15 @@ export default class LatestActivity extends Vue {}
       list-style: none;
       display: grid;
       grid-template-columns: 1fr;
-      grid-row-gap: 8px;
+      grid-row-gap: 12px;
     }
   }
 }
 .operation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   .operation__description {
     display: flex;
     flex-direction: column;

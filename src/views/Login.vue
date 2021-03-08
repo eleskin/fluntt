@@ -30,6 +30,7 @@ import { Button, TextField } from '@/assets/fluntt-ui';
 import FormGroup from '@/components/FormGroup.vue';
 import store from '@/store';
 import router from '@/router';
+import { AxiosResponse } from 'axios';
 
 interface Data {
   email: string;
@@ -60,7 +61,8 @@ interface Data {
         password: this.data.password,
       };
       store.dispatch('LOGIN_REQUEST', data)
-        .then(() => {
+        .then((response: AxiosResponse) => {
+          store.dispatch('GET_OPERATIONS', response.data.id);
           router.push('/');
         })
         .catch((response) => {

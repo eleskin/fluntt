@@ -37,6 +37,7 @@ import { Button, TextField } from '@/assets/fluntt-ui';
 import store from '@/store/index';
 import router from '@/router';
 import FormGroup from '@/components/FormGroup.vue';
+import { AxiosResponse } from 'axios';
 
 interface Data {
   name: string;
@@ -71,7 +72,8 @@ interface Data {
       };
 
       store.dispatch('REGISTER_REQUEST', data)
-        .then(() => {
+        .then((response: AxiosResponse) => {
+          store.dispatch('GET_OPERATIONS', response.data.id);
           router.push('/');
         })
         .catch((response) => {

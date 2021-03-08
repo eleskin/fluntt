@@ -28,7 +28,7 @@ import { Skeleton } from '@/assets/fluntt-ui';
   },
   props: {
     userName: String,
-    balance: String,
+    balance: Number,
   },
 })
 export default class Profile extends Vue {}

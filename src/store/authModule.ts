@@ -4,7 +4,7 @@ import { Commit, Dispatch } from 'vuex';
 interface State {
   token: string;
   user: {
-    id: number;
+    id: number | null;
     name: string;
   };
 }
@@ -45,6 +45,8 @@ const authModule = {
   mutations: {
     AUTH_LOGOUT: (state: State) => {
       state.token = '';
+      state.user.id = null;
+      state.user.name = '';
     },
     AUTH_SUCCESS: (state: State, response: Response) => {
       state.token = `${response.data.token_type} ${response.data.access_token}`;
@@ -91,7 +93,6 @@ const authModule = {
         .then((response: AxiosResponse) => {
           localStorage.setItem('token', `${response.data.token_type} ${response.data.access_token}`);
           commit('AUTH_SUCCESS', response);
-          // store.response(USER_REQUEST);
           resolve(response);
         })
         .catch((error) => {
@@ -112,7 +113,6 @@ const authModule = {
         .then((response: AxiosResponse) => {
           localStorage.setItem('token', `${response.data.token_type} ${response.data.access_token}`);
           commit('AUTH_SUCCESS', response);
-          // store.response(USER_REQUEST);
           resolve(response);
         })
         .catch((error) => {

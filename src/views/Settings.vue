@@ -18,6 +18,7 @@ import router from '@/router';
     logout() {
       store.dispatch('LOGOUT_REQUEST')
         .then(() => {
+          store.commit('CLEAR_STATE');
           router.push('/login');
         });
     },

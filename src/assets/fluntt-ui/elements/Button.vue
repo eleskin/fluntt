@@ -41,6 +41,8 @@ export default class Button extends Vue {}
     color: inherit;
     height: 100%;
     width: 100%;
+    min-height: max-content;
+    min-width: max-content;
     display: flex;
     flex-direction: column;
     align-items: center;

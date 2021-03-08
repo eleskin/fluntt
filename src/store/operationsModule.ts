@@ -64,6 +64,9 @@ const operationsModule = {
     ) => {
       operations.forEach((operation) => state.operations.push(operation));
     },
+    CLEAR_STATE: (state: State) => {
+      state.operations = [];
+    },
   },
   actions: {
     ADD_OPERATION: (
