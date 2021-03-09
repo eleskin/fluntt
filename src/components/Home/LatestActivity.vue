@@ -19,9 +19,23 @@
               <span class="operation__value">{{ item.value }} USD</span>
             </div>
             <div class="operation__control">
-              <button>Delete</button>
+              <button class="operation__delete" @click="(event) => deleteOperation(event, item.id)">
+                <font-awesome-icon icon="trash"/>
+              </button>
             </div>
           </li>
+          <img
+            class="latest-activity__illustration"
+            src="@/assets/illustrations/undraw_empty_xct9.svg"
+            v-if="!$store.getters.getOperations.length"
+            alt=""
+          />
+          <span
+            v-if="!$store.getters.getOperations.length"
+            class="latest-activity__empty-text"
+          >
+            There is nothing
+          </span>
         </ul>
       </div>
     </Widget>
@@ -31,10 +45,16 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Widget from '@/components/Widget.vue';
+import store from '@/store';
 
 @Options({
   components: {
     Widget,
+  },
+  methods: {
+    deleteOperation(event: Event, id: number) {
+      store.dispatch('DELETE_OPERATION', id);
+    },
   },
 })
 export default class LatestActivity extends Vue {}
@@ -54,6 +74,17 @@ export default class LatestActivity extends Vue {}
       display: grid;
       grid-template-columns: 1fr;
       grid-row-gap: 12px;
+      .latest-activity__illustration {
+        height: 100%;
+        width: 100%;
+        margin: auto;
+        max-height: 240px;
+      }
+      .latest-activity__empty-text {
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+      }
     }
   }
 }
@@ -89,6 +120,15 @@ export default class LatestActivity extends Vue {}
     .operation__value {
       color: #E32602;
     }
+  }
+  .operation__delete {
+    font-weight: 900;
+    font-size: 12px;
+    color: #E32602;
+    border: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
   }
 }
 </style>

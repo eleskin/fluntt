@@ -11,6 +11,7 @@ interface Data {
   category: string;
   userId: number;
   type: Type;
+  id?: number;
 }
 
 interface Operation {
@@ -64,6 +65,11 @@ const operationsModule = {
     ) => {
       operations.forEach((operation) => state.operations.push(operation));
     },
+    DELETE_OPERATION: (state: State, payload: {data: number}) => {
+      state.operations = state.operations.filter(
+        (operation) => operation.id !== Number(payload.data),
+      );
+    },
     CLEAR_STATE: (state: State) => {
       state.operations = [];
     },
@@ -74,7 +80,7 @@ const operationsModule = {
       data: Data,
     ) => new Promise((resolve) => {
       axios
-        .post('http://localhost:8000/api/operations/add', data, {
+        .post('http://localhost:8000/api/operations', data, {
           headers: {
             Authorization: localStorage.getItem('token'),
           },
@@ -97,6 +103,20 @@ const operationsModule = {
         })
         .then((response: AxiosResponse) => {
           commit('SET_OPERATIONS', { operations: response.data.operations });
+        });
+    }),
+    DELETE_OPERATION: (
+      { commit }: { commit: Commit },
+      id: number,
+    ) => new Promise(() => {
+      axios
+        .delete(`http://localhost:8000/api/operations/${id}`, {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        })
+        .then((response: AxiosResponse) => {
+          commit('DELETE_OPERATION', response);
         });
     }),
   },
