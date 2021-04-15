@@ -41,6 +41,15 @@ const operationsModule = {
   getters: {
     getOperations: (state: State) => {
       const { operations } = state;
+      const dates: Array<string> = [];
+      operations.forEach((operation: Operation) => {
+        const date = operation.created_at.split(' ')[0];
+        // const month = date.split('-')[1];
+        // const day = date.split('-')[2];
+        if (!dates.includes(date)) {
+          dates.push(date);
+        }
+      });
       return operations;
     },
     getBalance: (state: State) => {
@@ -57,6 +66,15 @@ const operationsModule = {
   mutations: {
     ADD_OPERATION: (state: State, response: Response) => {
       state.operations = [response.data.operation, ...state.operations];
+    },
+    EDIT_OPERATION: (state: State, response: Response) => {
+      state.operations.map((operation, i) => {
+        if (operation.id === response.data.operation.id) {
+          state.operations[i].value = response.data.operation.value;
+          state.operations[i].category = response.data.operation.category;
+        }
+        return null;
+      });
     },
     SET_OPERATIONS: (
       state: State, {
@@ -87,6 +105,21 @@ const operationsModule = {
         })
         .then((response) => {
           commit('ADD_OPERATION', response);
+          resolve(response);
+        });
+    }),
+    EDIT_OPERATION: (
+      { commit }: { commit: Commit },
+      data: Data,
+    ) => new Promise((resolve) => {
+      axios
+        .put(`http://localhost:8000/api/operations/${data.id}`, data, {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        })
+        .then((response) => {
+          commit('EDIT_OPERATION', response);
           resolve(response);
         });
     }),

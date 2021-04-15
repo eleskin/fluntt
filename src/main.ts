@@ -9,6 +9,7 @@ import {
   faSlidersH,
   faCheck,
   faTrash,
+  faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import App from './App.vue';
@@ -25,6 +26,7 @@ library.add(
   faSlidersH,
   faCheck,
   faTrash,
+  faPencilAlt,
 );
 
 const app = createApp(App);

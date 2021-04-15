@@ -19,7 +19,16 @@
               <span class="operation__value">{{ item.value }} USD</span>
             </div>
             <div class="operation__control">
-              <button class="operation__delete" @click="(event) => deleteOperation(event, item.id)">
+              <button
+                class="operation__edit"
+                @click="(event) => editOperation(event, item.id)"
+              >
+                <font-awesome-icon icon="pencil-alt"/>
+              </button>
+              <button
+                class="operation__delete"
+                @click="(event) => deleteOperation(event, item.id)"
+              >
                 <font-awesome-icon icon="trash"/>
               </button>
             </div>
@@ -52,6 +61,9 @@ import store from '@/store';
     Widget,
   },
   methods: {
+    editOperation(event: Event, id: number) {
+      this.$router.push(`/operation/${id}`);
+    },
     deleteOperation(event: Event, id: number) {
       store.dispatch('DELETE_OPERATION', id);
     },
@@ -121,14 +133,25 @@ export default class LatestActivity extends Vue {}
       color: #E32602;
     }
   }
-  .operation__delete {
-    font-weight: 900;
-    font-size: 12px;
-    color: #E32602;
-    border: none;
-    background: transparent;
-    outline: none;
-    cursor: pointer;
+  .operation__control {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    button {
+      border: none;
+      background: transparent;
+      outline: none;
+      cursor: pointer;
+      font-weight: 900;
+      font-size: 14px;
+      padding: 0;
+    }
+    .operation__delete {
+      color: #E32602;
+    }
+    .operation__edit {
+      color: #FBD101;
+    }
   }
 }
 </style>

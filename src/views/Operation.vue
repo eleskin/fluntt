@@ -1,7 +1,9 @@
 <template>
   <div class="page">
-    <FormGroup @submit="(event) => addOperation(event, operationType)">
-      <h2 class="title title-2">Add {{ operationType }}</h2>
+    <FormGroup @submit="(event) => onSubmit(event, operationType)">
+      <h2 class="title title-2">
+        {{ procedureType }} {{ operationType }}
+      </h2>
       <TextField
         type="number"
         placeholder="Enter value"
@@ -14,7 +16,7 @@
         :value="category"
         @input="category = $event.target.value;"
       />
-      <Button style-type="primary">Add {{ operationType }}</Button>
+      <Button style-type="primary">Save</Button>
     </FormGroup>
   </div>
 </template>
@@ -26,16 +28,28 @@ import store from '@/store';
 import FormGroup from '@/components/FormGroup.vue';
 import router from '@/router';
 
-enum Type {
+enum OperationType {
   Income = 'income',
   Expense = 'expense'
 }
 
-interface Data {
+enum ProcedureType {
+  Add = 'Add',
+  Edit = 'Edit',
+}
+
+interface AddOperationData {
   value: number;
   category: string;
   userId: number;
-  type: Type;
+  type: OperationType;
+}
+
+interface EditOperationData {
+  value: number;
+  category: string;
+  id: number;
+  updated_at: string;
 }
 
 @Options({
@@ -50,30 +64,73 @@ interface Data {
   },
   props: {},
   methods: {
-    addOperation(event: Event, type: Type) {
-      event.preventDefault();
-      const data: Data = {
+    addOperation(type: OperationType) {
+      const data: AddOperationData = {
         value: this.value,
         category: this.category,
         userId: store.getters.getId,
         type,
       };
       if (data.value && data.category) {
-        store.dispatch('ADD_OPERATION', data).then(() => {
-          router.push('/');
-        });
+        store.dispatch('ADD_OPERATION', data)
+          .then(() => {
+            router.push('/');
+          });
+      }
+    },
+    editOperation() {
+      const { id }: { id: number } = this.$router.currentRoute.value.params;
+      const data: EditOperationData = {
+        value: this.value,
+        category: this.category,
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        updated_at: this.updated_at,
+        id,
+      };
+      if (data.value && data.category) {
+        store.dispatch('EDIT_OPERATION', data)
+          .then(() => {
+            router.push('/');
+          });
+      }
+    },
+    onSubmit(event: Event, type: OperationType) {
+      event.preventDefault();
+      if (this.procedureType === ProcedureType.Add) {
+        this.addOperation(type);
+      }
+      if (this.procedureType === ProcedureType.Edit) {
+        this.editOperation();
       }
     },
   },
   computed: {
     operationType() {
+      const { id }: { id: number } = this.$router.currentRoute.value.params;
+      store.getters.getOperations.map(
+        (operation: { id: number; value: number; category: string }) => {
+          if (operation.id === Number(id)) {
+            this.value = operation.value;
+            this.category = operation.category;
+          }
+          return '';
+        },
+      );
+
       if (this.$router.currentRoute.value.path === '/operation/income' || this.$router.currentRoute.value.path === '/operation/income/') {
-        return Type.Income;
+        return OperationType.Income;
       }
       if (this.$router.currentRoute.value.path === '/operation/expense' || this.$router.currentRoute.value.path === '/operation/expense/') {
-        return Type.Expense;
+        return OperationType.Expense;
       }
-      return '';
+      if (Number(id)) {
+        return 'operation';
+      }
+      return router.push('/');
+    },
+    procedureType() {
+      const { id }: { id: number } = this.$router.currentRoute.value.params;
+      return Number(id) ? ProcedureType.Edit : ProcedureType.Add;
     },
   },
 })
