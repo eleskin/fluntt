@@ -35,6 +35,7 @@ interface State {
 }
 
 interface Dates {
+  id: number;
   date: string;
   operations: Array<Operation>;
 }
@@ -56,6 +57,7 @@ const operationsModule = {
       };
       const { operations } = state;
       const dates: Array<Dates> = [];
+      let id = 0;
       operations.forEach((operation) => {
         const operationDate = operation.created_at.split(' ')[0];
         const isIncluding = isIncludeDate(dates, operationDate);
@@ -63,12 +65,14 @@ const operationsModule = {
           dates[isIncluding].operations.push(operation);
         } else {
           dates.push({
+            id,
             date: operationDate,
             operations: [operation],
           });
+          id += 1;
         }
       });
-      return operations;
+      return dates;
     },
     getBalance: (state: State) => {
       let balance = 0;

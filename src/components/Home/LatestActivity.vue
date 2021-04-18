@@ -1,12 +1,15 @@
 <template>
   <div class="latest-activity">
     <Widget title="Latest activity">
-      <div class="latest-activity__container">
-<!--        <h4 class="latest-activity__title">25 Feb</h4>-->
+      <div class="latest-activity__container"
+           v-for="item in $store.getters.getOperations"
+           :key="item.id"
+      >
+        <h4 class="latest-activity__title">{{ getFormatDate(item.date) }}</h4>
         <ul class="latest-activity__list">
           <li
             class="latest-activity__item operation"
-            v-for="item in $store.getters.getOperations"
+            v-for="item in item.operations"
             :key="item.id"
           >
             <div
@@ -67,18 +70,28 @@ import store from '@/store';
     deleteOperation(event: Event, id: number) {
       store.dispatch('DELETE_OPERATION', id);
     },
+    getFormatDate(date: string) {
+      const monthsAbbr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const numMonth = Number(date.split('-')[1]);
+      const month = monthsAbbr[numMonth - 1];
+      const day = Number(date.split('-')[2]);
+      return `${day} ${month}`;
+    },
   },
 })
-export default class LatestActivity extends Vue {}
+export default class LatestActivity extends Vue {
+}
 </script>
 
 <style lang="scss" scoped>
 .latest-activity {
   .latest-activity__container {
     padding: 12px;
+
     .latest-activity__title {
       margin: 0 0 12px 0;
     }
+
     .latest-activity__list {
       padding: 0;
       margin: 0;
@@ -86,12 +99,14 @@ export default class LatestActivity extends Vue {}
       display: grid;
       grid-template-columns: 1fr;
       grid-row-gap: 12px;
+
       .latest-activity__illustration {
         height: 100%;
         width: 100%;
         margin: auto;
         max-height: 240px;
       }
+
       .latest-activity__empty-text {
         text-align: center;
         font-size: 14px;
@@ -100,21 +115,25 @@ export default class LatestActivity extends Vue {}
     }
   }
 }
+
 .operation {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
   .operation__description {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
     .operation__category {
       font-size: 12px;
       line-height: 100%;
       margin-bottom: 2px;
       color: rgba(33, 33, 33, 0.8);
     }
+
     .operation__value {
       font-weight: 600;
       font-size: 14px;
@@ -123,20 +142,24 @@ export default class LatestActivity extends Vue {}
       color: rgba(33, 33, 33, 0.8);
     }
   }
+
   .operation__description-income {
     .operation__value {
       color: #00C12F;
     }
   }
+
   .operation__description-expense {
     .operation__value {
       color: #E32602;
     }
   }
+
   .operation__control {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
+
     button {
       border: none;
       background: transparent;
@@ -146,9 +169,11 @@ export default class LatestActivity extends Vue {}
       font-size: 14px;
       padding: 0;
     }
+
     .operation__delete {
       color: #E32602;
     }
+
     .operation__edit {
       color: #FBD101;
     }
