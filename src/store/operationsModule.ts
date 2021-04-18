@@ -34,20 +34,38 @@ interface State {
   operations: Array<Operation>;
 }
 
+interface Dates {
+  date: string;
+  operations: Array<Operation>;
+}
+
 const operationsModule = {
   state: {
     operations: [],
   },
   getters: {
     getOperations: (state: State) => {
+      const isIncludeDate = (dates: Array<Dates>, operationDate: string) => {
+        let index = -1;
+        dates.forEach((date, i) => {
+          if (date.date === operationDate) {
+            index = i;
+          }
+        });
+        return index;
+      };
       const { operations } = state;
-      const dates: Array<string> = [];
-      operations.forEach((operation: Operation) => {
-        const date = operation.created_at.split(' ')[0];
-        // const month = date.split('-')[1];
-        // const day = date.split('-')[2];
-        if (!dates.includes(date)) {
-          dates.push(date);
+      const dates: Array<Dates> = [];
+      operations.forEach((operation) => {
+        const operationDate = operation.created_at.split(' ')[0];
+        const isIncluding = isIncludeDate(dates, operationDate);
+        if (isIncluding !== -1) {
+          dates[isIncluding].operations.push(operation);
+        } else {
+          dates.push({
+            date: operationDate,
+            operations: [operation],
+          });
         }
       });
       return operations;
@@ -83,7 +101,7 @@ const operationsModule = {
     ) => {
       operations.forEach((operation) => state.operations.push(operation));
     },
-    DELETE_OPERATION: (state: State, payload: {data: number}) => {
+    DELETE_OPERATION: (state: State, payload: { data: number }) => {
       state.operations = state.operations.filter(
         (operation) => operation.id !== Number(payload.data),
       );
