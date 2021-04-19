@@ -107,13 +107,16 @@ interface EditOperationData {
   computed: {
     operationType() {
       const { id }: { id: number } = this.$router.currentRoute.value.params;
-      store.getters.getOperations.map(
-        (operation: { id: number; value: number; category: string }) => {
-          if (operation.id === Number(id)) {
-            this.value = operation.value;
-            this.category = operation.category;
-          }
-          return '';
+      store.getters.getOperations.forEach(
+        (operation: {
+          date: string; operations: Array<{ id: number; value: string; category: string }>;
+        }) => {
+          operation.operations.forEach((item: { id: number; value: string; category: string }) => {
+            if (item.id === Number(id)) {
+              this.value = item.value;
+              this.category = item.category;
+            }
+          });
         },
       );
 
