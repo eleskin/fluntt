@@ -52,6 +52,25 @@ interface EditOperationData {
   updated_at: string;
 }
 
+enum Type {
+  Income = 'income',
+  Expense = 'expense'
+}
+
+interface OperationInterface {
+  id: number;
+  category: string;
+  type: Type;
+  userId: number;
+  value: number;
+  created_at: string;
+  date?: string;
+}
+
+interface State {
+  operations: Array<OperationInterface>;
+}
+
 @Options({
   data: () => ({
     value: null,
@@ -107,18 +126,17 @@ interface EditOperationData {
   computed: {
     operationType() {
       const { id }: { id: number } = this.$router.currentRoute.value.params;
-      store.getters.getOperations.forEach(
-        (operation: {
-          date: string; operations: Array<{ id: number; value: string; category: string }>;
-        }) => {
-          operation.operations.forEach((item: { id: number; value: string; category: string }) => {
+      const getData = (operations: Array<State>) => {
+        operations.forEach((operation: State) => {
+          operation.operations.forEach((item) => {
             if (item.id === Number(id)) {
               this.value = item.value;
               this.category = item.category;
             }
           });
-        },
-      );
+        });
+      };
+      getData(store.getters.getOperations);
 
       if (this.$router.currentRoute.value.path === '/operation/income' || this.$router.currentRoute.value.path === '/operation/income/') {
         return OperationType.Income;
