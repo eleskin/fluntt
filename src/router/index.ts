@@ -74,6 +74,12 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: ifAuthenticated,
   },
   {
+    path: '/operations',
+    name: 'Operations',
+    component: () => import('../views/Operations.vue'),
+    beforeEnter: ifAuthenticated,
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),

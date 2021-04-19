@@ -6,9 +6,9 @@
 <!--    <router-link to="/wallet" class="navbar__link">-->
 <!--      <font-awesome-icon icon="wallet"/>-->
 <!--    </router-link>-->
-<!--    <router-link to="/history" class="navbar__link">-->
-<!--      <font-awesome-icon icon="history"/>-->
-<!--    </router-link>-->
+    <router-link to="/operations" class="navbar__link">
+      <font-awesome-icon icon="history"/>
+    </router-link>
     <router-link to="/settings" class="navbar__link">
       <font-awesome-icon icon="sliders-h"/>
     </router-link>

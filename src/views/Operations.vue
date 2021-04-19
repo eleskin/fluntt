@@ -1,84 +1,73 @@
 <template>
-  <div class="latest-activity">
-    <Widget title="Latest activity">
-      <div class="latest-activity__container"
-           v-for="item in $store.getters.getOperations.slice(0, 3)"
-           :key="item.id"
-      >
-        <h4 class="latest-activity__title">{{ getFormatDate(item.date) }}</h4>
-        <ul class="latest-activity__list">
-          <li
-            class="latest-activity__item operation"
-            v-for="item in item.operations"
-            :key="item.id"
-          >
-            <div
-              :class="`operation__description ${
+  <div class="page page-with-buttons">
+    <div class="activity">
+      <Widget title="History">
+        <div class="activity__container"
+             v-for="item in $store.getters.getOperations"
+             :key="item.id"
+        >
+          <h4 class="activity__title">{{ getFormatDate(item.date) }}</h4>
+          <ul class="activity__list">
+            <li
+              class="activity__item operation"
+              v-for="item in item.operations"
+              :key="item.id"
+            >
+              <div
+                :class="`operation__description ${
                 item.type === 'income' ? 'operation__description-income' :
                 item.type === 'expense' ? 'operation__description-expense' : ''
               }`"
+              >
+                <span class="operation__category">{{ item.category }}</span>
+                <span class="operation__value">{{ item.value }} USD</span>
+              </div>
+              <div class="operation__control">
+                <button
+                  class="operation__edit"
+                  @click="(event) => editOperation(event, item.id)"
+                >
+                  <font-awesome-icon icon="pencil-alt"/>
+                </button>
+                <button
+                  class="operation__delete"
+                  @click="(event) => deleteOperation(event, item.id)"
+                >
+                  <font-awesome-icon icon="trash"/>
+                </button>
+              </div>
+            </li>
+            <img
+              class="latest-activity__illustration"
+              src="@/assets/illustrations/undraw_empty_xct9.svg"
+              v-if="!$store.getters.getOperations.length"
+              alt=""
+            />
+            <span
+              v-if="!$store.getters.getOperations.length"
+              class="latest-activity__empty-text"
             >
-              <span class="operation__category">{{ item.category }}</span>
-              <span class="operation__value">{{ item.value }} USD</span>
-            </div>
-            <div class="operation__control">
-              <button
-                class="operation__edit"
-                @click="(event) => editOperation(event, item.id)"
-              >
-                <font-awesome-icon icon="pencil-alt"/>
-              </button>
-              <button
-                class="operation__delete"
-                @click="(event) => deleteOperation(event, item.id)"
-              >
-                <font-awesome-icon icon="trash"/>
-              </button>
-            </div>
-          </li>
-          <img
-            class="latest-activity__illustration"
-            src="@/assets/illustrations/undraw_empty_xct9.svg"
-            v-if="!$store.getters.getOperations.length"
-            alt=""
-          />
-          <span
-            v-if="!$store.getters.getOperations.length"
-            class="latest-activity__empty-text"
-          >
             There is nothing
           </span>
-        </ul>
-      </div>
-      <Button
-        style-type="primary"
-        v-if="$store.getters.getOperations.length > 3"
-        to="/operations"
-      >Show more</Button>
-    </Widget>
+          </ul>
+        </div>
+      </Widget>
+    </div>
   </div>
+  <ControlButtons/>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { Button } from '@/assets/fluntt-ui/index';
+import ControlButtons from '@/components/ControlButtons.vue';
 import Widget from '@/components/Widget.vue';
-import store from '@/store';
 
 @Options({
-  data: () => ({
-  }),
   components: {
+    ControlButtons,
     Widget,
-    Button,
   },
   methods: {
-    editOperation(event: Event, id: number) {
-      this.$router.push(`/operation/${id}`);
-    },
-    deleteOperation(event: Event, id: number) {
-      store.dispatch('DELETE_OPERATION', id);
-    },
     getFormatDate(date: string) {
       const monthsAbbr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       const numMonth = Number(date.split('-')[1]);
@@ -88,20 +77,19 @@ import store from '@/store';
     },
   },
 })
-export default class LatestActivity extends Vue {
+export default class Home extends Vue {
 }
 </script>
-
 <style lang="scss" scoped>
-.latest-activity {
-  .latest-activity__container {
+.activity {
+  .activity__container {
     padding: 12px;
 
-    .latest-activity__title {
+    .activity__title {
       margin: 0 0 6px 0;
     }
 
-    .latest-activity__list {
+    .activity__list {
       padding: 0;
       margin: 0;
       list-style: none;
@@ -109,14 +97,14 @@ export default class LatestActivity extends Vue {
       grid-template-columns: 1fr;
       grid-row-gap: 12px;
 
-      .latest-activity__illustration {
+      .activity__illustration {
         height: 100%;
         width: 100%;
         margin: auto;
         max-height: 240px;
       }
 
-      .latest-activity__empty-text {
+      .activity__empty-text {
         text-align: center;
         font-size: 14px;
         font-weight: bold;
