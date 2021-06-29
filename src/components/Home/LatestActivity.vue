@@ -2,59 +2,63 @@
   <div class="latest-activity">
     <Widget title="Latest activity">
       <div class="latest-activity__container"
-           v-for="item in $store.getters.getOperations.slice(0, 3)"
-           :key="item.id"
       >
-        <h4 class="latest-activity__title">{{ getFormatDate(item.date) }}</h4>
-        <ul class="latest-activity__list">
-          <li
-            class="latest-activity__item operation"
-            v-for="item in item.operations"
-            :key="item.id"
-          >
-            <div
-              :class="`operation__description ${
+        <img
+          class="latest-activity__illustration"
+          src="@/assets/illustrations/undraw_empty_xct9.svg"
+          v-if="!$store.getters.getOperations.length"
+          alt=""
+        />
+        <span
+          class="latest-activity__empty-text"
+          v-if="!$store.getters.getOperations.length"
+        >
+          There is nothing
+        </span>
+        <div
+          v-for="item in $store.getters.getOperations.slice(0, 3)"
+          :key="item.id"
+        >
+          <h4 class="latest-activity__title">{{ getFormatDate(item.date) }}</h4>
+          <ul class="latest-activity__list">
+            <li
+              class="latest-activity__item operation"
+              v-for="item in item.operations"
+              :key="item.id"
+            >
+              <div
+                :class="`operation__description ${
                 item.type === 'income' ? 'operation__description-income' :
                 item.type === 'expense' ? 'operation__description-expense' : ''
               }`"
-            >
-              <span class="operation__category">{{ item.category }}</span>
-              <span class="operation__value">{{ item.value }} USD</span>
-            </div>
-            <div class="operation__control">
-              <button
-                class="operation__edit"
-                @click="(event) => editOperation(event, item.id)"
               >
-                <font-awesome-icon icon="pencil-alt"/>
-              </button>
-              <button
-                class="operation__delete"
-                @click="(event) => deleteOperation(event, item.id)"
-              >
-                <font-awesome-icon icon="trash"/>
-              </button>
-            </div>
-          </li>
-          <img
-            class="latest-activity__illustration"
-            src="@/assets/illustrations/undraw_empty_xct9.svg"
-            v-if="!$store.getters.getOperations.length"
-            alt=""
-          />
-          <span
-            v-if="!$store.getters.getOperations.length"
-            class="latest-activity__empty-text"
-          >
-            There is nothing
-          </span>
-        </ul>
+                <span class="operation__category">{{ item.category }}</span>
+                <span class="operation__value">{{ item.value }} USD</span>
+              </div>
+              <div class="operation__control">
+                <button
+                  class="operation__edit"
+                  @click="(event) => editOperation(event, item.id)"
+                >
+                  <font-awesome-icon icon="pencil-alt"/>
+                </button>
+                <button
+                  class="operation__delete"
+                  @click="(event) => deleteOperation(event, item.id)"
+                >
+                  <font-awesome-icon icon="trash"/>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
       <Button
         style-type="primary"
         v-if="$store.getters.getOperations.length > 3"
         to="/operations"
-      >Show more</Button>
+      >Show more
+      </Button>
     </Widget>
   </div>
 </template>
@@ -66,8 +70,7 @@ import Widget from '@/components/Widget.vue';
 import store from '@/store';
 
 @Options({
-  data: () => ({
-  }),
+  data: () => ({}),
   components: {
     Widget,
     Button,
@@ -108,21 +111,24 @@ export default class LatestActivity extends Vue {
       display: grid;
       grid-template-columns: 1fr;
       grid-row-gap: 12px;
+    }
 
-      .latest-activity__illustration {
-        height: 100%;
-        width: 100%;
-        margin: auto;
-        max-height: 240px;
-      }
+    .latest-activity__illustration {
+      height: 100%;
+      width: 100%;
+      margin: auto;
+      max-height: 240px;
+    }
 
-      .latest-activity__empty-text {
-        text-align: center;
-        font-size: 14px;
-        font-weight: bold;
-      }
+    .latest-activity__empty-text {
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      width: 100%;
+      display: inline-block;
     }
   }
+
   .button {
     margin-top: 12px;
   }
