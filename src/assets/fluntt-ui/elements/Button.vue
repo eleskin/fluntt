@@ -20,7 +20,6 @@ export default class Button extends Vue {}
 
 <style lang="scss">
 .button {
-  //margin: 12px 0;
   padding: 0;
   width: 100%;
   cursor: pointer;

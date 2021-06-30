@@ -10,6 +10,7 @@ import {
   faCheck,
   faTrash,
   faPencilAlt,
+  faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import App from './App.vue';
@@ -27,6 +28,7 @@ library.add(
   faCheck,
   faTrash,
   faPencilAlt,
+  faChevronDown,
 );
 
 const app = createApp(App);

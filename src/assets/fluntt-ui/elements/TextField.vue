@@ -1,5 +1,5 @@
 <template>
-  <label :class="`text-field${error ? ' text-field-error' : ''}`">
+  <label :class="`text-field ${error ? ' text-field-error' : ''}`">
     <span class="text-field__wrapper">
       <input
         class="text-field__input"
@@ -95,7 +95,7 @@ export default class TextField extends Vue {
       background: #ffffff;
     }
 
-    .text-field__input:focus + .text-field__placeholder  {
+    .text-field__input:focus + .text-field__placeholder {
       transition: 0.3s ease-in-out;
       color: #4376f9;
     }
@@ -108,6 +108,7 @@ export default class TextField extends Vue {
       border-color: #E32602;
       color: #e32602;
     }
+
     .text-field__placeholder {
       color: #e32602;
     }

@@ -1,18 +1,23 @@
 <template>
   <div class="page">
     <Button style-type="link" @click="logout">Logout</Button>
+    <div>
+      <span>Language: </span>
+      <Select :options="['English', 'Russian']"></Select>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { Button } from '@/assets/fluntt-ui/';
+import { Button, Select } from '@/assets/fluntt-ui/';
 import store from '@/store';
 import router from '@/router';
 
 @Options({
   components: {
     Button,
+    Select,
   },
   methods: {
     logout() {
