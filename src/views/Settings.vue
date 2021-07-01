@@ -2,8 +2,12 @@
   <div class="page">
     <Button style-type="link" @click="logout">Logout</Button>
     <div>
-      <span>Language: </span>
-      <Select :options="['English', 'Russian']"></Select>
+      <span>Currency: </span>
+      <Select
+        :options="['Dollar', 'Euro', 'Pound Sterling', 'Ruble']"
+        default-value="Dollar"
+        :callback="changeCurrency"
+      ></Select>
     </div>
   </div>
 </template>
@@ -26,6 +30,9 @@ import router from '@/router';
           store.commit('CLEAR_STATE');
           router.push('/login');
         });
+    },
+    changeCurrency(text: string) {
+      window.console.log(text);
     },
   },
 })
