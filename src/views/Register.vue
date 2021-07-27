@@ -46,14 +46,16 @@ interface Data {
 }
 
 @Options({
-  data: () => ({
-    data: {
-      name: '',
-      email: '',
-      password: '',
-    },
-    errors: {},
-  }),
+  data() {
+    return {
+      data: {
+        name: '',
+        email: '',
+        password: '',
+      },
+      errors: {},
+    };
+  },
   components: {
     Button,
     TextField,

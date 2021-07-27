@@ -37,10 +37,12 @@ import { Options, Vue } from 'vue-class-component';
     defaultValue: String,
     callback: Function,
   },
-  data: () => ({
-    isVisibleOptions: false,
-    value: '',
-  }),
+  data() {
+    return {
+      isVisibleOptions: false,
+      value: '',
+    };
+  },
   methods: {
     onSelect(selected: string) {
       this.value = selected;

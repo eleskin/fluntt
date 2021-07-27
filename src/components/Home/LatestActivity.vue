@@ -70,7 +70,9 @@ import Widget from '@/components/Widget.vue';
 import store from '@/store';
 
 @Options({
-  data: () => ({}),
+  data() {
+    return {};
+  },
   components: {
     Widget,
     Button,

@@ -25,9 +25,11 @@ import { Options, Vue } from 'vue-class-component';
     required: Boolean,
     value: String,
   },
-  data: () => ({
-    name: '',
-  }),
+  data() {
+    return {
+      name: '',
+    };
+  },
 })
 export default class TextField extends Vue {
 }

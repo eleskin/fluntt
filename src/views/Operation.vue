@@ -72,10 +72,12 @@ interface State {
 }
 
 @Options({
-  data: () => ({
-    value: null,
-    category: '',
-  }),
+  data() {
+    return {
+      value: null,
+      category: '',
+    };
+  },
   components: {
     TextField,
     Button,

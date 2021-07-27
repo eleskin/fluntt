@@ -38,13 +38,15 @@ interface Data {
 }
 
 @Options({
-  data: () => ({
-    data: {
-      email: '',
-      password: '',
-    },
-    errors: {},
-  }),
+  data() {
+    return {
+      data: {
+        email: '',
+        password: '',
+      },
+      errors: {},
+    };
+  },
   components: {
     Button,
     TextField,
