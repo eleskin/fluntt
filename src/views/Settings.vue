@@ -5,7 +5,7 @@
       <span>Currency: </span>
       <Select
         :options="['Dollar', 'Euro', 'Pound Sterling', 'Ruble']"
-        default-value="Dollar"
+        :default-value="$store.getters.getCurrency"
         :callback="changeCurrency"
       ></Select>
     </div>
@@ -23,6 +23,11 @@ import router from '@/router';
     Button,
     Select,
   },
+  data() {
+    return {
+      currency: '',
+    };
+  },
   methods: {
     logout() {
       store.dispatch('LOGOUT_REQUEST')
@@ -31,8 +36,14 @@ import router from '@/router';
           router.push('/login');
         });
     },
-    changeCurrency(text: string) {
-      window.console.log(text);
+    changeCurrency(currency: string) {
+      store.dispatch('UPDATE_CURRENCY', {
+        currency,
+        userId: store.getters.getId,
+      })
+        .then((response) => {
+          this.currency = response.data.currency;
+        });
     },
   },
 })

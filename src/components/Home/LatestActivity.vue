@@ -33,7 +33,8 @@
               }`"
               >
                 <span class="operation__category">{{ item.category }}</span>
-                <span class="operation__value">{{ item.value }} USD</span>
+                <span class="operation__value">
+                  {{ item.value }} {{ $store.getters.getTicker }}</span>
               </div>
               <div class="operation__control">
                 <button

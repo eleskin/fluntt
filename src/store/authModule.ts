@@ -6,6 +6,7 @@ interface State {
   user: {
     id: number | null;
     name: string;
+    currency: string;
   };
 }
 
@@ -15,6 +16,7 @@ interface Response {
     access_token: string;
     id: number;
     name: string;
+    currency: string;
   };
 }
 
@@ -29,6 +31,17 @@ interface DataRegister {
   password: string;
 }
 
+interface Tickers {
+  [key: string]: string;
+}
+
+const tickers: Tickers = {
+  Dollar: 'USD',
+  Euro: 'EUR',
+  'Pound Sterling': 'GBP',
+  Ruble: 'RUB',
+};
+
 const authModule = {
   state: {
     token: localStorage.getItem('token') || '',
@@ -41,17 +54,24 @@ const authModule = {
     isAuthenticated: (state: State) => !!state.token,
     getUserName: (state: State) => state.user.name,
     getId: (state: State) => state.user.id,
+    getCurrency: (state: State) => state.user.currency,
+    getTicker: (state: State) => tickers[state.user.currency],
   },
   mutations: {
     AUTH_LOGOUT: (state: State) => {
       state.token = '';
       state.user.id = null;
       state.user.name = '';
+      state.user.currency = '';
     },
     AUTH_SUCCESS: (state: State, response: Response) => {
       state.token = `${response.data.token_type} ${response.data.access_token}`;
       state.user.id = response.data.id;
       state.user.name = response.data.name;
+      state.user.currency = response.data.currency;
+    },
+    UPDATE_CURRENCY: (state: State, response: Response) => {
+      state.user.currency = response.data.currency;
     },
   },
   actions: {
@@ -132,6 +152,24 @@ const authModule = {
         .then((response: AxiosResponse) => {
           localStorage.removeItem('token');
           commit('AUTH_LOGOUT');
+          resolve(response);
+        });
+    }),
+    UPDATE_CURRENCY: (
+      { commit }: { commit: Commit },
+      data: { currency: string; userId: number },
+    ) => new Promise((resolve) => {
+      axios
+        .patch('http://localhost:8000/api/auth/change-currency', {
+          currency: data.currency,
+          userId: data.userId,
+        }, {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        })
+        .then((response: AxiosResponse) => {
+          commit('UPDATE_CURRENCY', { data: response.data.user });
           resolve(response);
         });
     }),

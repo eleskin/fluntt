@@ -135,7 +135,7 @@ const operationsModule = {
       data: Data,
     ) => new Promise((resolve) => {
       axios
-        .put(`http://localhost:8000/api/operations/${data.id}`, data, {
+        .patch(`http://localhost:8000/api/operations/${data.id}`, data, {
           headers: {
             Authorization: localStorage.getItem('token'),
           },

@@ -4,7 +4,7 @@
     <div class="profile__indicators">
       <div class="profile__indicator">
         <i>My balance</i>
-        <span>{{ balance }} USD</span>
+        <span>{{ balance }} {{ $store.getters.getTicker }}</span>
       </div>
 <!--      <div class="profile__indicator">-->
 <!--        <i>My budget</i>-->
