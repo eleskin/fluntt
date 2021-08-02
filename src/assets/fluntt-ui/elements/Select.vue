@@ -1,12 +1,26 @@
 <template>
-  <div class="select" @click="isVisibleOptions = !isVisibleOptions">
-    <span class="select__placeholder" v-if="!(value || defaultValue)">
+  <div
+    :class="isVisibleOptions ? 'select_active' : 'select'"
+  >
+    <div
+      class="select__overlay"
+      @click="isVisibleOptions = false"
+    />
+    <span
+      class="select__placeholder"
+      v-if="!(value || defaultValue)"
+      @click="isVisibleOptions = true"
+    >
       <span>Select currency</span>
       <span class="select__arrow">
         <font-awesome-icon icon="chevron-down"/>
       </span>
     </span>
-    <span class="select__value" v-if="value || defaultValue">
+    <span
+      class="select__value"
+      v-if="value || defaultValue"
+      @click="isVisibleOptions = true"
+    >
       <span>{{ value || defaultValue }}</span>
       <span class="select__arrow">
         <font-awesome-icon icon="chevron-down"/>
@@ -46,6 +60,7 @@ import { Options, Vue } from 'vue-class-component';
   methods: {
     onSelect(selected: string) {
       this.value = selected;
+      this.isVisibleOptions = false;
     },
   },
 })
@@ -54,8 +69,7 @@ export default class Select extends Vue {
 </script>
 
 <style lang="scss">
-.select {
-  width: fit-content;
+.select, .select_active {
   background: #ffffff;
   border: 2px solid #E0E0E0;
   box-sizing: border-box;
@@ -75,6 +89,7 @@ export default class Select extends Vue {
     align-items: center;
     justify-content: space-between;
     transition: 0.2s ease-in-out;
+    width: 100%;
 
     span:first-child {
       margin-right: 4px;
@@ -92,24 +107,24 @@ export default class Select extends Vue {
   }
 
   .select__options, .select__options_visible {
-    opacity: 0;
-    position: absolute;
-    margin: 0;
+    position: fixed;
+    margin: auto 8px 8px 8px;
     list-style: none;
     box-shadow: 0 5px 10px rgba(#212121, 0.25);
     border-radius: 4px;
-    width: calc(100% + 4px);
+    width: calc(100% - 16px);
     background-color: #ffffff;
-    transform: translateX(-2px) translateY(-2px);
-    top: 0;
     left: 0;
     right: 0;
-    z-index: -1;
-    transition: 0.2s ease-in-out 0s;
-    min-width: fit-content;
     display: flex;
     flex-direction: column;
-    padding: 4px 0;
+    padding: 4px 6px;
+    box-sizing: border-box;
+    bottom: 0;
+    height: 174px;
+    transition: 0.3s ease-in-out;
+    z-index: 3;
+    transform: translateY(174px);
 
     li {
       font-size: 14px;
@@ -119,6 +134,8 @@ export default class Select extends Vue {
       transition: 0.2s ease-in-out;
       white-space: nowrap;
       min-width: fit-content;
+      border-radius: 4px;
+      margin: 2px 0;
     }
 
     li:hover {
@@ -133,9 +150,37 @@ export default class Select extends Vue {
   }
 
   .select__options_visible {
-    opacity: 1;
-    z-index: 1;
-    transition: 0.2s ease-in-out 0s, z-index 0s ease-in-out 0s;
+    z-index: 3;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: auto;
+    overflow-y: scroll;
+    transition: 0.3s ease-in-out;
+    transform: translateY(0);
   }
+}
+
+.select .select__overlay {
+  transition: 0.2s ease-in-out 0s;
+}
+
+.select .select__overlay, .select_active .select__overlay {
+  content: '';
+  background-color: rgba(33, 33, 33, 0);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  inset: 0;
+  display: block;
+  z-index: -1;
+}
+
+.select_active .select__overlay {
+  background-color: rgba(33, 33, 33, 0.8);
+  backdrop-filter: blur(2px);
+  z-index: 3;
+  transition: 0.2s ease-in-out 0s, z-index 0s ease-in-out 0s;
 }
 </style>
