@@ -8,12 +8,12 @@
       </div>
 <!--      <div class="profile__indicator">-->
 <!--        <i>My budget</i>-->
-<!--        <span>3,100 USD</span>-->
+<!--        <span>310000 USD</span>-->
 <!--      </div>-->
-<!--      <div class="profile__indicator">-->
-<!--        <i>My spending</i>-->
-<!--        <span>600 USD</span>-->
-<!--      </div>-->
+      <div class="profile__indicator">
+        <i>My spending</i>
+        <span>{{ $store.getters.getSpending }} {{ $store.getters.getTicker }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -48,9 +48,10 @@ export default class Profile extends Vue {}
     display: block;
   }
   .profile__indicators {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 12px;
+    grid-row-gap: 12px;
     margin-top: 12px;
     .profile__indicator {
       display: flex;
@@ -64,6 +65,7 @@ export default class Profile extends Vue {}
         font-size: 16px;
         line-height: 100%;
         color: #FFFFFF;
+        white-space: nowrap;
       }
     }
   }

@@ -77,12 +77,22 @@ const operationsModule = {
     getBalance: (state: State) => {
       let balance = 0;
       if (state.operations.length) {
-        state.operations.forEach((operaion) => {
-          if (operaion.type === Type.Income) balance += operaion.value;
-          if (operaion.type === Type.Expense) balance -= operaion.value;
+        state.operations.forEach((operation) => {
+          if (operation.type === Type.Income) balance += operation.value;
+          if (operation.type === Type.Expense) balance -= operation.value;
         });
       }
       return balance;
+    },
+    getSpending: (state: State) => {
+      let spending = 0;
+      if (state.operations.length) {
+        const { operations } = state;
+        operations.forEach((operation) => {
+          if (operation.type === Type.Expense) spending += operation.value;
+        });
+      }
+      return spending;
     },
   },
   mutations: {

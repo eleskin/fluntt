@@ -16,6 +16,12 @@
         :value="category"
         @input="category = $event.target.value;"
       />
+      <Select
+        :options="['Dollar', 'Euro', 'Pound Sterling', 'Ruble', 'Pound Sterling', 'Ruble']"
+        :default-value="$store.getters.getCurrency"
+        :callback="changeCurrency"
+        :placeholder="'Select category'"
+      />
       <Button style-type="primary">Save</Button>
     </FormGroup>
   </div>
@@ -23,7 +29,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { TextField, Button } from '@/assets/fluntt-ui/index';
+import { TextField, Button, Select } from '@/assets/fluntt-ui/index';
 import store from '@/store';
 import FormGroup from '@/components/FormGroup.vue';
 import router from '@/router';
@@ -82,6 +88,7 @@ interface State {
     TextField,
     Button,
     FormGroup,
+    Select,
   },
   props: {},
   methods: {

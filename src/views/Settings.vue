@@ -7,6 +7,7 @@
         :options="['Dollar', 'Euro', 'Pound Sterling', 'Ruble']"
         :default-value="$store.getters.getCurrency"
         :callback="changeCurrency"
+        placeholder="Select currency"
       ></Select>
     </div>
   </div>
