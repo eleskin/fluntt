@@ -92,7 +92,7 @@ export default class TextField extends Vue {
 
     .text-field__input:not(:placeholder-shown) + .text-field__placeholder,
     .text-field__input:focus + .text-field__placeholder {
-      transform: translateY(-120%) translateX(13px);
+      transform: translateY(-150%) translateX(13px);
       transition: 0.3s ease-in-out;
       background: #ffffff;
     }
@@ -100,6 +100,7 @@ export default class TextField extends Vue {
     .text-field__input:focus + .text-field__placeholder {
       transition: 0.3s ease-in-out;
       color: #4376f9;
+      font-size: 12px;
     }
   }
 }

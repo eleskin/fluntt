@@ -79,7 +79,6 @@ export default class Select extends Vue {
   line-height: 100%;
   font-size: 14px;
   transition: 0.3s ease-in-out;
-  display: inline;
   position: relative;
   cursor: pointer;
 
