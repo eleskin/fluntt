@@ -5,6 +5,7 @@
         :user-name="this.$store.getters.getUserName"
         :balance="this.$store.getters.getBalance"
       />
+      <BalanceChanges/>
       <LatestActivity/>
     </div>
   </div>
@@ -16,6 +17,7 @@ import { Options, Vue } from 'vue-class-component';
 import { Button, TextField } from '@/assets/fluntt-ui';
 import Profile from '@/components/Home/Profile.vue';
 import ControlButtons from '@/components/ControlButtons.vue';
+import BalanceChanges from '@/components/Home/BalanceChanges.vue';
 import LatestActivity from '@/components/Home/LatestActivity.vue';
 
 @Options({
@@ -24,6 +26,7 @@ import LatestActivity from '@/components/Home/LatestActivity.vue';
     TextField,
     Profile,
     ControlButtons,
+    BalanceChanges,
     LatestActivity,
   },
 })

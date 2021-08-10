@@ -2,6 +2,8 @@
   <div class="latest-activity">
     <Widget title="Latest activity">
       <div class="latest-activity__container"
+           v-for="item in $store.getters.getOperations.slice(0, 3)"
+           :key="item.id"
       >
         <img
           class="latest-activity__illustration"
@@ -15,44 +17,39 @@
         >
           There is nothing
         </span>
-        <div
-          v-for="item in $store.getters.getOperations.slice(0, 3)"
-          :key="item.id"
-        >
-          <h4 class="latest-activity__title">{{ getFormatDate(item.date) }}</h4>
-          <ul class="latest-activity__list">
-            <li
-              class="latest-activity__item operation"
-              v-for="item in item.operations"
-              :key="item.id"
-            >
-              <div
-                :class="`operation__description ${
+        <h4 class="latest-activity__title">{{ getFormatDate(item.date) }}</h4>
+        <ul class="latest-activity__list">
+          <li
+            class="latest-activity__item operation"
+            v-for="item in item.operations"
+            :key="item.id"
+          >
+            <div
+              :class="`operation__description ${
                 item.type === 'income' ? 'operation__description-income' :
                 item.type === 'expense' ? 'operation__description-expense' : ''
               }`"
-              >
-                <span class="operation__category">{{ item.category }}</span>
-                <span class="operation__value">
+            >
+              <span class="operation__category">{{ item.category }}</span>
+              <span class="operation__value">
                   {{ item.value }} {{ $store.getters.getTicker }}</span>
-              </div>
-              <div class="operation__control">
-                <button
-                  class="operation__edit"
-                  @click="(event) => editOperation(event, item.id)"
-                >
-                  <font-awesome-icon icon="pencil-alt"/>
-                </button>
-                <button
-                  class="operation__delete"
-                  @click="(event) => deleteOperation(event, item.id)"
-                >
-                  <font-awesome-icon icon="trash"/>
-                </button>
-              </div>
-            </li>
-          </ul>
-        </div>
+            </div>
+            <div class="operation__control">
+              <button
+                class="operation__edit"
+                @click="(event) => editOperation(event, item.id)"
+              >
+                <font-awesome-icon icon="pencil-alt"/>
+              </button>
+              <button
+                class="operation__delete"
+                @click="(event) => deleteOperation(event, item.id)"
+              >
+                <font-awesome-icon icon="trash"/>
+              </button>
+            </div>
+          </li>
+        </ul>
       </div>
       <Button
         style-type="primary"
@@ -102,6 +99,8 @@ export default class LatestActivity extends Vue {
 .latest-activity {
   .latest-activity__container {
     padding: 12px;
+    //display: grid;
+    //grid-row-gap: 12px;
 
     .latest-activity__title {
       margin: 0 0 6px 0;

@@ -16,12 +16,32 @@
         :value="category"
         @input="category = $event.target.value;"
       />
-      <Select
-        :options="['Dollar', 'Euro', 'Pound Sterling', 'Ruble', 'Pound Sterling', 'Ruble']"
-        :default-value="$store.getters.getCurrency"
-        :callback="changeCurrency"
-        :placeholder="'Select category'"
-      />
+<!--      <Select-->
+<!--        :options="['Dollar', 'Euro', 'Pound Sterling', 'Ruble', 'Pound Sterling', 'Ruble']"-->
+<!--        :default-value="$store.getters.getCurrency"-->
+<!--        :callback="changeCurrency"-->
+<!--        :placeholder="'Select category'"-->
+<!--      />-->
+      <div class="operation__date">
+        <Select
+          :options="getDays"
+          :default-value="date.day"
+          :callback="addDay"
+          placeholder="Day"
+        />
+        <Select
+          :options="months"
+          :default-value="months[date.month - 1]"
+          :callback="addMonth"
+          placeholder="Month"
+        />
+        <Select
+          :options="getYears"
+          :default-value="date.year"
+          :callback="addYear"
+          placeholder="Year"
+        />
+      </div>
       <Button style-type="primary">Save</Button>
     </FormGroup>
   </div>
@@ -49,6 +69,8 @@ interface AddOperationData {
   category: string;
   userId: number;
   type: OperationType;
+  created_at: string;
+  updated_at: string;
 }
 
 interface EditOperationData {
@@ -82,6 +104,25 @@ interface State {
     return {
       value: null,
       category: '',
+      months: [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ],
+      date: {
+        day: '',
+        month: '',
+        year: '',
+      },
     };
   },
   components: {
@@ -93,11 +134,16 @@ interface State {
   props: {},
   methods: {
     addOperation(type: OperationType) {
+      window.console.log(this.getAt());
       const data: AddOperationData = {
         value: this.value,
         category: this.category,
         userId: store.getters.getId,
         type,
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        created_at: this.getAt(),
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        updated_at: this.getAt(),
       };
       if (data.value && data.category) {
         store.dispatch('ADD_OPERATION', data)
@@ -131,6 +177,21 @@ interface State {
         this.editOperation();
       }
     },
+    addDay(data: string) {
+      this.date.day = data;
+    },
+    addMonth(data: string) {
+      this.date.month = this.months.indexOf(data) + 1;
+    },
+    addYear(data: string) {
+      this.date.year = data;
+    },
+    getNewDate() {
+      return new Date();
+    },
+    getAt() {
+      return `${this.date.year}-${this.date.month < 10 ? `0${this.date.month}` : this.date.month}-${this.date.day < 10 ? `0${this.date.day}` : this.date.day} ${this.getNewDate().getHours() < 10 ? `0${this.getNewDate().getHours()}` : this.getNewDate().getHours()}:${this.getNewDate().getMinutes() < 10 ? `0${this.getNewDate().getMinutes()}` : this.getNewDate().getMinutes()}:${this.getNewDate().getSeconds() < 10 ? `0${this.getNewDate().getSeconds()}` : this.getNewDate().getSeconds()}`;
+    },
   },
   computed: {
     operationType() {
@@ -162,6 +223,27 @@ interface State {
       const { id }: { id: number } = this.$router.currentRoute.value.params;
       return Number(id) ? ProcedureType.Edit : ProcedureType.Add;
     },
+    getDays() {
+      const days: number[] = [];
+      for (let i = 1; i <= 31; i += 1) {
+        days.push(i);
+      }
+      return days;
+    },
+    getYears() {
+      const years: number[] = [];
+      const date: Date = new Date();
+      const currentYear: number = date.getFullYear();
+      for (let i = 2020; i <= currentYear; i += 1) {
+        years.push(i);
+      }
+      return years;
+    },
+  },
+  mounted() {
+    this.date.day = this.getNewDate().getDate();
+    this.date.month = this.getNewDate().getMonth() + 1;
+    this.date.year = this.getNewDate().getFullYear();
   },
 })
 export default class Operation extends Vue {
@@ -169,5 +251,9 @@ export default class Operation extends Vue {
 </script>
 
 <style scoped>
-
+.operation__date {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 12px;
+}
 </style>

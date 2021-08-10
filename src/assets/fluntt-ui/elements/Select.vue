@@ -11,7 +11,7 @@
       v-if="!(value || defaultValue)"
       @click="isVisibleOptions = true"
     >
-      <span>Select currency</span>
+      <span>{{ placeholder || 'Select currency' }}</span>
       <span class="select__arrow">
         <font-awesome-icon icon="chevron-down"/>
       </span>
@@ -50,6 +50,7 @@ import { Options, Vue } from 'vue-class-component';
     options: Array,
     defaultValue: String,
     callback: Function,
+    placeholder: String,
   },
   data() {
     return {
@@ -120,10 +121,11 @@ export default class Select extends Vue {
     padding: 4px 6px;
     box-sizing: border-box;
     bottom: 0;
-    height: 174px;
+    max-height: 174px;
+    height: fit-content;
     transition: 0.3s ease-in-out;
     z-index: 3;
-    transform: translateY(174px);
+    transform: translateY(182px);
 
     li {
       font-size: 14px;
