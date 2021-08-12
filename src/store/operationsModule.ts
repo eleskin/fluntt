@@ -113,7 +113,37 @@ const operationsModule = {
         operations,
       }: { operations: Array<Operation> },
     ) => {
-      operations.forEach((operation) => state.operations.push(operation));
+      operations.sort((a, b) => {
+        const dateA = a.created_at.split(' ')[0].split('-');
+        const dateB = b.created_at.split(' ')[0].split('-');
+        if (Number(dateA[0]) < Number(dateB[0])) {
+          return 1;
+        }
+        if (Number(dateA[0]) > Number(dateB[0])) {
+          return -1;
+        }
+        if (Number(dateA[0]) === Number(dateB[0])) {
+          if (Number(dateA[1]) < Number(dateB[1])) {
+            return 1;
+          }
+          if (Number(dateA[1]) > Number(dateB[1])) {
+            return -1;
+          }
+          if (Number(dateA[1]) === Number(dateB[1])) {
+            if (Number(dateA[2]) < Number(dateB[2])) {
+              return 1;
+            }
+            if (Number(dateA[2]) > Number(dateB[2])) {
+              return -1;
+            }
+            if (Number(dateA[2]) === Number(dateB[2])) {
+              return 0;
+            }
+          }
+        }
+        return 0;
+      });
+      state.operations.push(...operations);
     },
     DELETE_OPERATION: (state: State, payload: { data: number }) => {
       state.operations = state.operations.filter(

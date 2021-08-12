@@ -63,6 +63,8 @@
 import { Options, Vue } from 'vue-class-component';
 import ControlButtons from '@/components/ControlButtons.vue';
 import Widget from '@/components/Widget.vue';
+import store from '@/store';
+import router from '@/router';
 
 @Options({
   components: {
@@ -70,6 +72,12 @@ import Widget from '@/components/Widget.vue';
     Widget,
   },
   methods: {
+    editOperation(event: Event, id: number) {
+      router.push(`/operation/${id}`);
+    },
+    deleteOperation(event: Event, id: number) {
+      store.dispatch('DELETE_OPERATION', id);
+    },
     getFormatDate(date: string) {
       const monthsAbbr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       const numMonth = Number(date.split('-')[1]);

@@ -66,6 +66,7 @@ import { Options, Vue } from 'vue-class-component';
 import { Button } from '@/assets/fluntt-ui/index';
 import Widget from '@/components/Widget.vue';
 import store from '@/store';
+import router from '@/router';
 
 @Options({
   data() {
@@ -77,7 +78,7 @@ import store from '@/store';
   },
   methods: {
     editOperation(event: Event, id: number) {
-      this.$router.push(`/operation/${id}`);
+      router.push(`/operation/${id}`);
     },
     deleteOperation(event: Event, id: number) {
       store.dispatch('DELETE_OPERATION', id);

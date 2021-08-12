@@ -190,7 +190,7 @@ interface State {
       return new Date();
     },
     getAt() {
-      return `${this.date.year}-${this.date.month < 10 ? `0${this.date.month}` : this.date.month}-${this.date.day < 10 ? `0${this.date.day}` : this.date.day} ${this.getNewDate().getHours() < 10 ? `0${this.getNewDate().getHours()}` : this.getNewDate().getHours()}:${this.getNewDate().getMinutes() < 10 ? `0${this.getNewDate().getMinutes()}` : this.getNewDate().getMinutes()}:${this.getNewDate().getSeconds() < 10 ? `0${this.getNewDate().getSeconds()}` : this.getNewDate().getSeconds()}`;
+      return `${this.date.year}-${this.date.month < 10 ? `0${this.date.month}` : this.date.month}-${this.date.day < 10 ? `0${this.date.day}` : this.date.day} 00:00:00`;
     },
   },
   computed: {
