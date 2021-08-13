@@ -34,7 +34,7 @@ interface State {
   operations: Array<Operation>;
 }
 
-interface Dates {
+interface Date {
   id: number;
   date: string;
   operations: Array<Operation>;
@@ -46,7 +46,7 @@ const operationsModule = {
   },
   getters: {
     getOperations: (state: State) => {
-      const isIncludeDate = (dates: Array<Dates>, operationDate: string) => {
+      const isIncludeDate = (dates: Array<Date>, operationDate: string) => {
         let index = -1;
         dates.forEach((date, i) => {
           if (date.date === operationDate) {
@@ -56,7 +56,7 @@ const operationsModule = {
         return index;
       };
       const { operations } = state;
-      const dates: Array<Dates> = [];
+      const dates: Array<Date> = [];
       let id = 0;
       operations.forEach((operation) => {
         const operationDate = operation.created_at.split(' ')[0];
@@ -93,6 +93,55 @@ const operationsModule = {
         });
       }
       return spending;
+    },
+    getChartData: (state: State) => {
+      const isIncludeDate = (dates: Array<Date>, operationDate: string) => {
+        let index = -1;
+        dates.forEach((date, i) => {
+          if (date.date === operationDate) {
+            index = i;
+          }
+        });
+        return index;
+      };
+      const { operations } = state;
+      const dates: Array<Date> = [];
+      let id = 0;
+      operations.forEach((operation) => {
+        const operationDate = operation.created_at.split(' ')[0];
+        const isIncluding = isIncludeDate(dates, operationDate);
+        if (isIncluding !== -1) {
+          dates[isIncluding].operations.push(operation);
+        } else {
+          dates.push({
+            id,
+            date: operationDate,
+            operations: [operation],
+          });
+          id += 1;
+        }
+      });
+      const formatDates = dates.reverse().map((date: Date) => {
+        let result = 0;
+        date.operations.map((operation: Operation) => {
+          if (operation.type === 'income') {
+            result += operation.value;
+          } else if (operation.type === 'expense') {
+            result -= operation.value;
+          }
+          return null;
+        });
+        return result;
+      });
+      const summaryDates = formatDates.map((item, i) => {
+        if (i > 0) {
+          formatDates[i] = item + formatDates[i - 1];
+          return item + formatDates[i - 1];
+        }
+        return item;
+      });
+      window.console.log(summaryDates);
+      return summaryDates;
     },
   },
   mutations: {

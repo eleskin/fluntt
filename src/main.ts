@@ -13,6 +13,7 @@ import {
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import VueApexCharts from 'vue3-apexcharts';
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
@@ -40,4 +41,5 @@ app.component('font-awesome-icon', FontAwesomeIcon);
 
 app.use(store)
   .use(router)
+  .use(VueApexCharts)
   .mount('#app');
