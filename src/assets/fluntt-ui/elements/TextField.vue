@@ -83,7 +83,7 @@ export default class TextField extends Vue {
       cursor: text;
       color: rgba(33, 33, 33, 0.4);
       transition: 0.3s ease-in-out;
-      padding: 0 2px;
+      padding: 0;
     }
 
     .text-field__input::placeholder {
@@ -96,6 +96,7 @@ export default class TextField extends Vue {
       transform: translateY(-150%) translateX(0);
       transition: 0.3s ease-in-out;
       background: #ffffff;
+      font-size: 12px;
     }
 
     .text-field__input:focus + .text-field__placeholder {

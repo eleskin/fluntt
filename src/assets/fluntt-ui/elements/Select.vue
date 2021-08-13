@@ -76,7 +76,7 @@ export default class Select extends Vue {
   border-bottom: 2px solid #E0E0E0;
   box-sizing: border-box;
   border-radius: 0;
-  padding: 12px;
+  padding: 12px 0;
   outline: none;
   line-height: 100%;
   font-size: 14px;
