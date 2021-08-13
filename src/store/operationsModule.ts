@@ -104,6 +104,7 @@ const operationsModule = {
         if (operation.id === response.data.operation.id) {
           state.operations[i].value = response.data.operation.value;
           state.operations[i].category = response.data.operation.category;
+          state.operations[i].type = response.data.operation.type;
         }
         return null;
       });

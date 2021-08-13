@@ -8,8 +8,9 @@
         label="Type"
         :options="['Income', 'Expense']"
         :default-value="type"
-        :callback="addDay"
+        :callback="addType"
         placeholder="Select type"
+        v-if="procedureType === 'Edit'"
       />
       <TextField
         type="number"
@@ -88,6 +89,7 @@ interface EditOperationData {
   category: string;
   id: number;
   updated_at: string;
+  type: string;
 }
 
 enum Type {
@@ -145,7 +147,6 @@ interface State {
   props: {},
   methods: {
     addOperation(type: OperationType) {
-      window.console.log(this.getAt());
       const data: AddOperationData = {
         value: this.value,
         category: this.category,
@@ -171,6 +172,7 @@ interface State {
         // eslint-disable-next-line @typescript-eslint/camelcase
         updated_at: this.updated_at,
         id,
+        type: this.type.toLowerCase(),
       };
       if (data.value && data.category) {
         store.dispatch('EDIT_OPERATION', data)
@@ -196,6 +198,9 @@ interface State {
     },
     addYear(data: string) {
       this.date.year = data;
+    },
+    addType(data: string) {
+      this.type = data;
     },
     getNewDate() {
       return new Date();
