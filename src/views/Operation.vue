@@ -4,6 +4,13 @@
       <h2 class="title title-2">
         {{ procedureType }} {{ operationType }}
       </h2>
+      <Select
+        label="Type"
+        :options="['Income', 'Expense']"
+        :default-value="type"
+        :callback="addDay"
+        placeholder="Select type"
+      />
       <TextField
         type="number"
         placeholder="Enter value"
@@ -24,22 +31,25 @@
 <!--      />-->
       <div class="operation__date">
         <Select
+          label="Day"
           :options="getDays"
           :default-value="date.day"
           :callback="addDay"
-          placeholder="Day"
+          placeholder="Select day"
         />
         <Select
+          label="Month"
           :options="months"
           :default-value="months[date.month - 1]"
           :callback="addMonth"
-          placeholder="Month"
+          placeholder="Slect month"
         />
         <Select
+          label="Year"
           :options="getYears"
           :default-value="date.year"
           :callback="addYear"
-          placeholder="Year"
+          placeholder="Select year"
         />
       </div>
       <Button style-type="primary">Save</Button>
@@ -104,6 +114,7 @@ interface State {
     return {
       value: null,
       category: '',
+      type: '',
       months: [
         'January',
         'February',
@@ -202,6 +213,7 @@ interface State {
             if (item.id === Number(id)) {
               this.value = item.value;
               this.category = item.category;
+              this.type = item.type.charAt(0).toUpperCase() + [].slice.call(item.type, 1).join('');
             }
           });
         });

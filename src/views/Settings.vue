@@ -4,6 +4,7 @@
     <div>
       <span>Currency: </span>
       <Select
+        label="Currency"
         :options="['Dollar', 'Euro', 'Pound Sterling', 'Ruble']"
         :default-value="$store.getters.getCurrency"
         :callback="changeCurrency"

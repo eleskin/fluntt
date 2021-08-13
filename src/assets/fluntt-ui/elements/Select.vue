@@ -6,6 +6,7 @@
       class="select__overlay"
       @click="isVisibleOptions = false"
     />
+    <span class="select__label">{{ label || 'Select option' }}</span>
     <span
       class="select__placeholder"
       v-if="!(value || defaultValue)"
@@ -51,6 +52,7 @@ import { Options, Vue } from 'vue-class-component';
     defaultValue: String,
     callback: Function,
     placeholder: String,
+    label: String,
   },
   data() {
     return {
@@ -83,6 +85,13 @@ export default class Select extends Vue {
   transition: 0.3s ease-in-out;
   position: relative;
   cursor: pointer;
+
+  .select__label {
+    font-size: 12px;
+    color: rgba(33, 33, 33, 0.4);
+    transform: translateY(-7px);
+    display: block;
+  }
 
   .select__placeholder, .select__value {
     color: rgba(33, 33, 33, 0.4);
