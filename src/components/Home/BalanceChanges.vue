@@ -1,6 +1,9 @@
 <template>
   <div class="balance-changes">
     <Widget title="Balance changes">
+      <header class="balance-changes__header">
+        {{ balance }} {{ ticker }}
+      </header>
       <apexchart
         type="area"
         height="120"
@@ -77,6 +80,10 @@ import Widget from '@/components/Widget.vue';
   data() {
     return {};
   },
+  props: {
+    balance: Number,
+    ticker: String,
+  },
   components: {
     Widget,
   },
@@ -86,5 +93,16 @@ export default class BalanceChanges extends Vue {
 </script>
 
 <style scoped>
-
+.balance-changes__header {
+  background: #F5F5F5;
+  border-radius: 4px 4px 0 0;
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+  color: #000000;
+}
 </style>

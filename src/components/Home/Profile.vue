@@ -4,7 +4,7 @@
     <div class="profile__indicators">
       <div class="profile__indicator">
         <i>My balance</i>
-        <span>{{ balance }} {{ $store.getters.getTicker }}</span>
+        <span>{{ balance }} {{ ticker }}</span>
       </div>
 <!--      <div class="profile__indicator">-->
 <!--        <i>My budget</i>-->
@@ -12,7 +12,7 @@
 <!--      </div>-->
       <div class="profile__indicator">
         <i>My spending</i>
-        <span>{{ $store.getters.getSpending }} {{ $store.getters.getTicker }}</span>
+        <span>{{ spending }} {{ ticker }}</span>
       </div>
     </div>
   </div>
@@ -29,6 +29,8 @@ import { Skeleton } from '@/assets/fluntt-ui';
   props: {
     userName: String,
     balance: Number,
+    ticker: String,
+    spending: Number,
   },
 })
 export default class Profile extends Vue {}

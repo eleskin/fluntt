@@ -4,8 +4,13 @@
       <Profile
         :user-name="this.$store.getters.getUserName"
         :balance="this.$store.getters.getBalance"
+        :ticker="this.$store.getters.getTicker"
+        :spending="this.$store.getters.getSpending"
       />
-      <BalanceChanges/>
+      <BalanceChanges
+        :balance="this.$store.getters.getBalance"
+        :ticker="this.$store.getters.getTicker"
+      />
       <LatestActivity/>
     </div>
   </div>
