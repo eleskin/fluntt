@@ -133,15 +133,13 @@ const operationsModule = {
         });
         return result;
       });
-      const summaryDates = formatDates.map((item, i) => {
+      return formatDates.map((item, i) => {
         if (i > 0) {
           formatDates[i] = item + formatDates[i - 1];
           return item + formatDates[i - 1];
         }
         return item;
       });
-      window.console.log(summaryDates);
-      return summaryDates;
     },
   },
   mutations: {
