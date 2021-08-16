@@ -2,7 +2,6 @@
   <div class="page">
     <Button style-type="link" @click="logout">Logout</Button>
     <div>
-      <span>Currency: </span>
       <Select
         label="Currency"
         :options="['Dollar', 'Euro', 'Pound Sterling', 'Ruble']"
