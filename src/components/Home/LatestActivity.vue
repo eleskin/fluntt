@@ -1,14 +1,11 @@
 <template>
   <div class="latest-activity">
     <Widget title="Latest activity">
-      <div class="latest-activity__container"
-           v-for="item in $store.getters.getOperations.slice(0, 3)"
-           :key="item.id"
-      >
+      <div class="latest-activity__placeholder">
         <img
           class="latest-activity__illustration"
           src="@/assets/illustrations/undraw_empty_xct9.svg"
-          v-if="!$store.getters.getOperations.length"
+          v-if="$store.getters.getOperations.length === 0"
           alt=""
         />
         <span
@@ -17,6 +14,11 @@
         >
           There is nothing
         </span>
+      </div>
+      <div class="latest-activity__container"
+           v-for="item in $store.getters.getOperations.slice(0, 3)"
+           :key="item.id"
+      >
         <h4 class="latest-activity__title">{{ getFormatDate(item.date) }}</h4>
         <ul class="latest-activity__list">
           <li
@@ -98,24 +100,7 @@ export default class LatestActivity extends Vue {
 
 <style lang="scss" scoped>
 .latest-activity {
-  .latest-activity__container {
-    padding: 12px;
-    //display: grid;
-    //grid-row-gap: 12px;
-
-    .latest-activity__title {
-      margin: 0 0 6px 0;
-    }
-
-    .latest-activity__list {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-row-gap: 12px;
-    }
-
+  .latest-activity__placeholder {
     .latest-activity__illustration {
       height: 100%;
       width: 100%;
@@ -129,6 +114,22 @@ export default class LatestActivity extends Vue {
       font-weight: bold;
       width: 100%;
       display: inline-block;
+    }
+  }
+  .latest-activity__container {
+    padding: 12px;
+
+    .latest-activity__title {
+      margin: 0 0 6px 0;
+    }
+
+    .latest-activity__list {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-row-gap: 12px;
     }
   }
 

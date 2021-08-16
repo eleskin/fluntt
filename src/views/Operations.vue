@@ -2,6 +2,20 @@
   <div class="page page-with-buttons">
     <div class="activity">
       <Widget title="History">
+        <div class="activity__placeholder">
+          <img
+            class="activity__illustration"
+            src="@/assets/illustrations/undraw_empty_xct9.svg"
+            v-if="$store.getters.getOperations.length === 0"
+            alt=""
+          />
+          <span
+            class="activity__empty-text"
+            v-if="!$store.getters.getOperations.length"
+          >
+          There is nothing
+        </span>
+        </div>
         <div class="activity__container"
              v-for="item in $store.getters.getOperations"
              :key="item.id"
@@ -39,18 +53,6 @@
                 </button>
               </div>
             </li>
-            <img
-              class="latest-activity__illustration"
-              src="@/assets/illustrations/undraw_empty_xct9.svg"
-              v-if="!$store.getters.getOperations.length"
-              alt=""
-            />
-            <span
-              v-if="!$store.getters.getOperations.length"
-              class="latest-activity__empty-text"
-            >
-            There is nothing
-          </span>
           </ul>
         </div>
       </Widget>
@@ -92,6 +94,23 @@ export default class Home extends Vue {
 </script>
 <style lang="scss" scoped>
 .activity {
+  .activity__placeholder {
+    .activity__illustration {
+      height: 100%;
+      width: 100%;
+      margin: auto;
+      max-height: 240px;
+    }
+
+    .activity__empty-text {
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      width: 100%;
+      display: inline-block;
+    }
+  }
+
   .activity__container {
     padding: 12px;
 
@@ -106,19 +125,6 @@ export default class Home extends Vue {
       display: grid;
       grid-template-columns: 1fr;
       grid-row-gap: 12px;
-
-      .activity__illustration {
-        height: 100%;
-        width: 100%;
-        margin: auto;
-        max-height: 240px;
-      }
-
-      .activity__empty-text {
-        text-align: center;
-        font-size: 14px;
-        font-weight: bold;
-      }
     }
   }
   .button {
@@ -131,6 +137,22 @@ export default class Home extends Vue {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  .latest-activity__placeholder {
+    .latest-activity__illustration {
+      height: 100%;
+      width: 100%;
+      margin: auto;
+      max-height: 240px;
+    }
+
+    .latest-activity__empty-text {
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      width: 100%;
+      display: inline-block;
+    }
+  }
 
   .operation__description {
     display: flex;
