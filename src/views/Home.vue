@@ -10,6 +10,7 @@
       <BalanceChanges
         :balance="this.$store.getters.getBalance"
         :ticker="this.$store.getters.getTicker"
+        v-if="this.$store.getters.getOperations.length > 0"
       />
       <LatestActivity/>
     </div>

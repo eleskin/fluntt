@@ -133,13 +133,17 @@ const operationsModule = {
         });
         return result;
       });
-      return formatDates.map((item, i) => {
+      const chartData = formatDates.map((item, i) => {
         if (i > 0) {
           formatDates[i] = item + formatDates[i - 1];
           return item + formatDates[i - 1];
         }
         return item;
       });
+      if (chartData.length === 1) {
+        return [...chartData, chartData[0]];
+      }
+      return chartData;
     },
   },
   mutations: {
