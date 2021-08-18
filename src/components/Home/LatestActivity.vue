@@ -1,16 +1,14 @@
 <template>
   <div class="latest-activity">
     <Widget title="Latest activity">
-      <div class="latest-activity__placeholder">
+      <div class="latest-activity__placeholder" v-if="$store.getters.getOperations.length === 0">
         <img
           class="latest-activity__illustration"
           src="@/assets/illustrations/undraw_empty_xct9.svg"
-          v-if="$store.getters.getOperations.length === 0"
           alt=""
         />
         <span
           class="latest-activity__empty-text"
-          v-if="!$store.getters.getOperations.length"
         >
           There is nothing
         </span>

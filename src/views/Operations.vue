@@ -2,16 +2,14 @@
   <div class="page page-with-buttons">
     <div class="activity">
       <Widget title="History">
-        <div class="activity__placeholder">
+        <div class="activity__placeholder" v-if="$store.getters.getOperations.length === 0">
           <img
             class="activity__illustration"
             src="@/assets/illustrations/undraw_empty_xct9.svg"
-            v-if="$store.getters.getOperations.length === 0"
             alt=""
           />
           <span
             class="activity__empty-text"
-            v-if="!$store.getters.getOperations.length"
           >
           There is nothing
         </span>
