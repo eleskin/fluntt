@@ -241,8 +241,9 @@ interface State {
       return Number(id) ? ProcedureType.Edit : ProcedureType.Add;
     },
     getDays() {
+      const daysInMonth = new Date(this.date.year, this.date.month, 0).getDate();
       const days: number[] = [];
-      for (let i = 1; i <= 31; i += 1) {
+      for (let i = 1; i <= daysInMonth; i += 1) {
         days.push(i);
       }
       return days;
