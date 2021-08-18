@@ -61,12 +61,12 @@ export default class App extends Vue {
 
 .scale-enter-active,
 .scale-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.55s ease-in-out;
 }
 
 .scale-enter-from,
 .scale-leave-to {
   opacity: 0;
-  transform: scale(0.9);
+  transform: scale(0.92);
 }
 </style>
