@@ -24,6 +24,10 @@
               class="activity__item operation"
               v-for="item in item.operations"
               :key="item.id"
+              :style="{
+                opacity: deletedItem === item.id ? 0 : 1,
+                transform: deletedItem === item.id ? 'translateX(-100%)' : '',
+              }"
             >
               <div
                 :class="`operation__description ${
@@ -67,6 +71,11 @@ import store from '@/store';
 import router from '@/router';
 
 @Options({
+  data() {
+    return {
+      deletedItem: null,
+    };
+  },
   components: {
     ControlButtons,
     Widget,
@@ -76,6 +85,7 @@ import router from '@/router';
       router.push(`/operation/${id}`);
     },
     deleteOperation(event: Event, id: number) {
+      this.deletedItem = id;
       store.dispatch('DELETE_OPERATION', id);
     },
     getFormatDate(date: string) {
@@ -94,6 +104,7 @@ export default class Home extends Vue {
 .activity {
   .activity__placeholder {
     padding: 12px;
+
     .activity__illustration {
       height: 100%;
       width: 100%;
@@ -126,6 +137,7 @@ export default class Home extends Vue {
       grid-row-gap: 12px;
     }
   }
+
   .button {
     margin-top: 12px;
   }
@@ -136,6 +148,8 @@ export default class Home extends Vue {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  transition: all 0.2s ease-in-out, overflow 0s linear 0.2s;
+
   .latest-activity__placeholder {
     .latest-activity__illustration {
       height: 100%;
