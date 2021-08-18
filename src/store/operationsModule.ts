@@ -40,6 +40,39 @@ interface Date {
   operations: Array<Operation>;
 }
 
+const sortOperations = (operations: Operation[]) => {
+  operations.sort((a, b) => {
+    const dateA = a.created_at.split(' ')[0].split('-');
+    const dateB = b.created_at.split(' ')[0].split('-');
+    if (Number(dateA[0]) < Number(dateB[0])) {
+      return 1;
+    }
+    if (Number(dateA[0]) > Number(dateB[0])) {
+      return -1;
+    }
+    if (Number(dateA[0]) === Number(dateB[0])) {
+      if (Number(dateA[1]) < Number(dateB[1])) {
+        return 1;
+      }
+      if (Number(dateA[1]) > Number(dateB[1])) {
+        return -1;
+      }
+      if (Number(dateA[1]) === Number(dateB[1])) {
+        if (Number(dateA[2]) < Number(dateB[2])) {
+          return 1;
+        }
+        if (Number(dateA[2]) > Number(dateB[2])) {
+          return -1;
+        }
+        if (Number(dateA[2]) === Number(dateB[2])) {
+          return 0;
+        }
+      }
+    }
+    return 0;
+  });
+};
+
 const operationsModule = {
   state: {
     operations: [],
@@ -149,6 +182,7 @@ const operationsModule = {
   mutations: {
     ADD_OPERATION: (state: State, response: Response) => {
       state.operations = [response.data.operation, ...state.operations];
+      sortOperations(state.operations);
     },
     EDIT_OPERATION: (state: State, response: Response) => {
       state.operations.map((operation, i) => {
@@ -165,36 +199,7 @@ const operationsModule = {
         operations,
       }: { operations: Array<Operation> },
     ) => {
-      operations.sort((a, b) => {
-        const dateA = a.created_at.split(' ')[0].split('-');
-        const dateB = b.created_at.split(' ')[0].split('-');
-        if (Number(dateA[0]) < Number(dateB[0])) {
-          return 1;
-        }
-        if (Number(dateA[0]) > Number(dateB[0])) {
-          return -1;
-        }
-        if (Number(dateA[0]) === Number(dateB[0])) {
-          if (Number(dateA[1]) < Number(dateB[1])) {
-            return 1;
-          }
-          if (Number(dateA[1]) > Number(dateB[1])) {
-            return -1;
-          }
-          if (Number(dateA[1]) === Number(dateB[1])) {
-            if (Number(dateA[2]) < Number(dateB[2])) {
-              return 1;
-            }
-            if (Number(dateA[2]) > Number(dateB[2])) {
-              return -1;
-            }
-            if (Number(dateA[2]) === Number(dateB[2])) {
-              return 0;
-            }
-          }
-        }
-        return 0;
-      });
+      sortOperations(operations);
       state.operations.push(...operations);
     },
     DELETE_OPERATION: (state: State, payload: { data: number }) => {
