@@ -95,6 +95,7 @@ export default class Home extends Vue {
 <style lang="scss" scoped>
 .activity {
   .activity__placeholder {
+    padding: 12px;
     .activity__illustration {
       height: 100%;
       width: 100%;

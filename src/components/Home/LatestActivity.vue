@@ -101,6 +101,7 @@ export default class LatestActivity extends Vue {
 <style lang="scss" scoped>
 .latest-activity {
   .latest-activity__placeholder {
+    padding: 12px;
     .latest-activity__illustration {
       height: 100%;
       width: 100%;
