@@ -20,7 +20,7 @@ export default class ControlButtons extends Vue {}
 <style lang="scss" scoped>
 .control-buttons {
   position: absolute;
-  width: 100%;
+  width: calc(100% - 24px);
   bottom: 0;
   margin-bottom: 12px;
   display: flex;
@@ -28,12 +28,10 @@ export default class ControlButtons extends Vue {}
   justify-content: space-between;
   align-items: center;
   button:first-child {
-    margin-left: 12px;
     margin-right: 6px;
   }
   button:last-child {
     margin-left: 6px;
-    margin-right: 12px;
   }
 }
 </style>

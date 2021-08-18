@@ -14,8 +14,8 @@
       />
       <LatestActivity/>
     </div>
+    <ControlButtons/>
   </div>
-  <ControlButtons/>
 </template>
 
 <script lang="ts">

@@ -2,7 +2,9 @@
   <div class="container">
     <Header/>
     <div class="main">
-      <router-view/>
+      <transition name="scale" mode="out-in">
+        <router-view/>
+      </transition>
     </div>
     <Navbar v-if="this.$store.getters.isAuthenticated"/>
   </div>
@@ -55,5 +57,16 @@ export default class App extends Vue {
       }
     }
   }
+}
+
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.5s ease;
+}
+
+.scale-enter-from,
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
 }
 </style>

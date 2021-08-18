@@ -57,8 +57,8 @@
         </div>
       </Widget>
     </div>
+    <ControlButtons/>
   </div>
-  <ControlButtons/>
 </template>
 
 <script lang="ts">
