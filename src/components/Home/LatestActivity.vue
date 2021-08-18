@@ -25,6 +25,10 @@
             class="latest-activity__item operation"
             v-for="item in item.operations"
             :key="item.id"
+            :style="{
+              opacity: deletedItem === item.id ? 0 : 1,
+              transform: deletedItem === item.id ? 'translateX(-100%)' : '',
+            }"
           >
             <div
               :class="`operation__description ${
@@ -72,7 +76,9 @@ import router from '@/router';
 
 @Options({
   data() {
-    return {};
+    return {
+      deletedItem: null,
+    };
   },
   components: {
     Widget,
@@ -83,6 +89,7 @@ import router from '@/router';
       router.push(`/operation/${id}`);
     },
     deleteOperation(event: Event, id: number) {
+      this.deletedItem = id;
       store.dispatch('DELETE_OPERATION', id);
     },
     getFormatDate(date: string) {
@@ -102,6 +109,7 @@ export default class LatestActivity extends Vue {
 .latest-activity {
   .latest-activity__placeholder {
     padding: 12px;
+
     .latest-activity__illustration {
       height: 100%;
       width: 100%;
@@ -117,6 +125,7 @@ export default class LatestActivity extends Vue {
       display: inline-block;
     }
   }
+
   .latest-activity__container {
     padding: 12px;
 
@@ -144,6 +153,7 @@ export default class LatestActivity extends Vue {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  transition: all 0.2s ease-in-out, overflow 0s linear 0.2s;
 
   .operation__description {
     display: flex;
