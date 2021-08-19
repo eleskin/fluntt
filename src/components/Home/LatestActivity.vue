@@ -25,7 +25,8 @@
             :key="item.id"
             :style="{
               opacity: deletedItem === item.id ? 0 : 1,
-              transform: deletedItem === item.id ? 'translateX(-100%)' : '',
+              height: deletedItem === item.id ? '0' : '',
+              padding: deletedItem === item.id ? '0' : '',
             }"
           >
             <div
@@ -125,7 +126,7 @@ export default class LatestActivity extends Vue {
   }
 
   .latest-activity__container {
-    padding: 12px;
+    padding: 12px 12px 6px 12px;
 
     .latest-activity__title {
       margin: 0 0 6px 0;
@@ -137,7 +138,6 @@ export default class LatestActivity extends Vue {
       list-style: none;
       display: grid;
       grid-template-columns: 1fr;
-      grid-row-gap: 12px;
     }
   }
 
@@ -152,6 +152,9 @@ export default class LatestActivity extends Vue {
   justify-content: space-between;
   align-items: center;
   transition: all 0.2s ease-in-out, overflow 0s linear 0.2s;
+  padding: 6px 0;
+  overflow: hidden;
+  height: 29.6px;
 
   .operation__description {
     display: flex;

@@ -26,7 +26,8 @@
               :key="item.id"
               :style="{
                 opacity: deletedItem === item.id ? 0 : 1,
-                transform: deletedItem === item.id ? 'translateX(-100%)' : '',
+                height: deletedItem === item.id ? '0' : '',
+                padding: deletedItem === item.id ? '0' : '',
               }"
             >
               <div
@@ -122,7 +123,7 @@ export default class Home extends Vue {
   }
 
   .activity__container {
-    padding: 12px;
+    padding: 12px 12px 6px 12px;
 
     .activity__title {
       margin: 0 0 6px 0;
@@ -134,7 +135,6 @@ export default class Home extends Vue {
       list-style: none;
       display: grid;
       grid-template-columns: 1fr;
-      grid-row-gap: 12px;
     }
   }
 
@@ -149,6 +149,9 @@ export default class Home extends Vue {
   justify-content: space-between;
   align-items: center;
   transition: all 0.2s ease-in-out, overflow 0s linear 0.2s;
+  overflow: hidden;
+  height: 29.6px;
+  padding: 6px 0;
 
   .latest-activity__placeholder {
     .latest-activity__illustration {
