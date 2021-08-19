@@ -48,17 +48,18 @@ export default class TextField extends Vue {
 
     .text-field__input {
       width: 100%;
-      background: #ffffff;
+      background-color: #f5f5f5;
       border: none;
       border-bottom: 2px solid #E0E0E0;
+      border-radius: 4px 4px 0 0;
       box-sizing: border-box;
-      border-radius: 0;
-      padding: 12px 12px 12px 0;
+      //border-radius: 0;
+      padding: 22px 12px 12px 12px;
       outline: none;
       line-height: 100%;
       font-size: 14px;
       transition: 0.3s ease-in-out;
-      -webkit-box-shadow: inset 0 0 0 50px #fff;
+      -webkit-box-shadow: inset 0 0 0 50px #f5f5f5;
       -webkit-text-fill-color: #000;
     }
 
@@ -78,7 +79,7 @@ export default class TextField extends Vue {
       z-index: 1;
       top: 0;
       bottom: 0;
-      left: 0;
+      left: 12px;
       transform: translateX(0);
       cursor: text;
       color: rgba(33, 33, 33, 0.4);
@@ -93,9 +94,8 @@ export default class TextField extends Vue {
 
     .text-field__input:not(:placeholder-shown) + .text-field__placeholder,
     .text-field__input:focus + .text-field__placeholder {
-      transform: translateY(-150%) translateX(0);
+      transform: translateY(-18px) translateX(0);
       transition: 0.3s ease-in-out;
-      background: #ffffff;
       font-size: 12px;
     }
 
