@@ -73,12 +73,12 @@ export default class Select extends Vue {
 
 <style lang="scss">
 .select, .select_active {
-  background: #ffffff;
+  background: #f5f5f5;
   border: none;
   border-bottom: 2px solid #E0E0E0;
   box-sizing: border-box;
-  border-radius: 0;
-  padding: 12px 0;
+  border-radius: 4px 4px 0 0;
+  padding: 12px;
   outline: none;
   line-height: 100%;
   font-size: 14px;
@@ -123,7 +123,7 @@ export default class Select extends Vue {
     box-shadow: 0 5px 10px rgba(#212121, 0.25);
     border-radius: 4px;
     width: calc(100% - 16px);
-    background-color: #ffffff;
+    background-color: #f5f5f5;
     left: 0;
     right: 0;
     display: flex;
