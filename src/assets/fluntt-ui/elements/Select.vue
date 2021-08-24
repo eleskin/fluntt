@@ -6,7 +6,10 @@
       class="select__overlay"
       @click="isVisibleOptions = false"
     />
-    <span class="select__label">{{ label || 'Select option' }}</span>
+    <span
+      class="select__label"
+      @click="isVisibleOptions = true"
+    >{{ label || 'Select option' }}</span>
     <span
       class="select__placeholder"
       v-if="!(value || defaultValue)"
@@ -131,17 +134,17 @@ export default class Select extends Vue {
     padding: 4px 6px;
     box-sizing: border-box;
     bottom: 0;
-    max-height: 174px;
+    max-height: 208px;
     height: fit-content;
     transition: 0.3s ease-in-out;
     z-index: 3;
-    transform: translateY(182px);
+    transform: translateY(216px);
 
     li {
       font-size: 14px;
-      padding: 12px;
+      padding: 16px 12px;
       cursor: pointer;
-      background-color: #ffffff;
+      //background-color: #ffffff;
       transition: 0.2s ease-in-out;
       white-space: nowrap;
       min-width: fit-content;

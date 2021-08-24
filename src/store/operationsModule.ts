@@ -154,18 +154,19 @@ const operationsModule = {
           id += 1;
         }
       });
-      const formatDates = dates.reverse().map((date: Date) => {
-        let result = 0;
-        date.operations.map((operation: Operation) => {
-          if (operation.type === 'income') {
-            result += operation.value;
-          } else if (operation.type === 'expense') {
-            result -= operation.value;
-          }
-          return null;
+      const formatDates = dates.reverse()
+        .map((date: Date) => {
+          let result = 0;
+          date.operations.map((operation: Operation) => {
+            if (operation.type === 'income') {
+              result += operation.value;
+            } else if (operation.type === 'expense') {
+              result -= operation.value;
+            }
+            return null;
+          });
+          return result;
         });
-        return result;
-      });
       const chartData = formatDates.map((item, i) => {
         if (i > 0) {
           formatDates[i] = item + formatDates[i - 1];
