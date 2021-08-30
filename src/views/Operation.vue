@@ -18,18 +18,20 @@
         :value="value"
         @input="value = $event.target.value;"
       />
+      <Select
+        :label="'Category'"
+        :options="['Add new category', ...$store.getters.getCategories]"
+        :placeholder="'Enter category'"
+        :callback="addCategory"
+        :default-value="category"
+      />
       <TextField
         type="text"
-        placeholder="Enter category"
-        :value="category"
+        :label="'New category'"
+        placeholder="Enter new category"
         @input="category = $event.target.value;"
+        v-if="categoryItem === 'Add new category'"
       />
-<!--      <Select-->
-<!--        :options="['Dollar', 'Euro', 'Pound Sterling', 'Ruble', 'Pound Sterling', 'Ruble']"-->
-<!--        :default-value="$store.getters.getCurrency"-->
-<!--        :callback="changeCurrency"-->
-<!--        :placeholder="'Select category'"-->
-<!--      />-->
       <div class="operation__date">
         <Select
           label="Day"
@@ -136,6 +138,7 @@ interface State {
         month: '',
         year: '',
       },
+      categoryItem: '',
     };
   },
   components: {
@@ -149,7 +152,7 @@ interface State {
     addOperation(type: OperationType) {
       const data: AddOperationData = {
         value: this.value,
-        category: this.category,
+        category: this.categoryItem === 'Add new category' ? this.category : this.categoryItem,
         userId: store.getters.getId,
         type,
         // eslint-disable-next-line @typescript-eslint/camelcase
@@ -168,7 +171,7 @@ interface State {
       const { id }: { id: number } = this.$router.currentRoute.value.params;
       const data: EditOperationData = {
         value: this.value,
-        category: this.category,
+        category: this.categoryItem === 'Add new category' ? this.category : this.categoryItem,
         // eslint-disable-next-line @typescript-eslint/camelcase
         updated_at: this.updated_at,
         id,
@@ -207,6 +210,9 @@ interface State {
     },
     getAt() {
       return `${this.date.year}-${this.date.month < 10 ? `0${this.date.month}` : this.date.month}-${this.date.day < 10 ? `0${this.date.day}` : this.date.day} 00:00:00`;
+    },
+    addCategory(data: string) {
+      this.categoryItem = data;
     },
   },
   computed: {

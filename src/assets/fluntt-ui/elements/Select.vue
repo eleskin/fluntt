@@ -93,6 +93,7 @@ export default class Select extends Vue {
     font-size: 12px;
     color: rgba(33, 33, 33, 0.4);
     transform: translateY(-7px);
+    will-change: transform;
     display: block;
   }
 
@@ -139,6 +140,7 @@ export default class Select extends Vue {
     transition: 0.3s ease-in-out;
     z-index: 3;
     transform: translateY(216px);
+    will-change: transform;
 
     li {
       font-size: 14px;
@@ -173,6 +175,7 @@ export default class Select extends Vue {
     overflow-y: scroll;
     transition: 0.3s ease-in-out;
     transform: translateY(0);
+    will-change: transform;
   }
 }
 

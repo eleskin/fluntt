@@ -179,6 +179,13 @@ const operationsModule = {
       }
       return chartData;
     },
+    getCategories: (state: State) => {
+      const categories: string[] = [];
+      state.operations.forEach((item: Operation) => {
+        if (!categories.includes(item.category)) categories.push(item.category);
+      });
+      return categories;
+    },
   },
   mutations: {
     ADD_OPERATION: (state: State, response: Response) => {
